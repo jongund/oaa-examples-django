@@ -1,0 +1,10 @@
+<div id="rulesets">
+  
+  <h2 id="id_nav_options_label">Rule Categories</h2>
+  <ul>
+    <li {% if option == 'summary' %} class="active" {% endif %}><a href="{% url 'show_examples' %}">Summary</a></li>
+    {% for rc in rule_categories.all %}
+    <li {% if option == rc.slug %} class="active" {% endif %}><a href="{{ rc.get_examples_url }}">{{ rc.title_plural }}</a></li>
+    {% endfor %}
+  </ul>
+</div>

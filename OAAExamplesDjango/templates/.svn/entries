@@ -1,0 +1,83 @@
+10
+
+dir
+178
+https://jongund@svn.oaa-web-accessibility.org/coding/trunk/django/coding/templates
+https://jongund@svn.oaa-web-accessibility.org/coding
+
+
+
+2013-09-25T16:26:03.307754Z
+156
+jongund
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+7e144008-753f-11e2-bbf7-95898c488026
+
+markup
+dir
+
+tools
+dir
+
+rulesets
+dir
+
+registration
+dir
+
+rules
+dir
+
+abouts
+dir
+
+base.html
+file
+
+
+
+
+2014-05-19T17:35:07.000000Z
+34d63d0273100ffea3660ddd4e253f97
+2013-09-24T21:59:28.343073Z
+153
+jongund
+has-props
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3176
+
+examples
+dir
+

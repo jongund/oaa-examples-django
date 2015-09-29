@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% if website %}
+    <title>{{ website }}</title>
+    {% else %}
+    <title>Accessible Web Coding Practices: {{ title }}</title>
+    {% endif %}
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+    {% block top_styles %}
+    {% endblock %}
+      <link href="{{ STATIC_URL }}style/main.css" rel="stylesheet"/>
+    {% block bottom_styles %}
+    {% endblock %}
+
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="{{ STATIC_URL }}favicon.ico"/>
+  </head>
+  <body>
+    <div id="banner" role="banner">
+      <div class="login">
+        {% if user.is_authenticated %}
+          <p>{{ user.first_name }}  {{ user.last_name }}  {% for organization in user.organization_set.all %}{{ organization.title }}{% endfor %}</p>
+          <a href="{% url 'logout' %}">Logout</a>
+        {% else %}
+          <a href="{% url 'login' %}">Login</a>
+          <br></br>
+        {% endif %}
+      </div>
+        <div class="title">Accessible Web Coding Practices <span>(Prototype)</span></div>
+      <div class="reference">A project of the <a href="http://collaborate.athenpro.org/group/open-accessibility-alliance/">Open Accessibility Alliance</a> and <a href="http://www.openajax.org/member/wiki/Accessibility">OpenAjax Accessibility Task Force</a></div>
+    </div>
+    <div id="nav_main" role="navigation" aria-labelledby="nav_main_label">
+      <h2 id="nav_main_label">Main Menu</h2>
+      <ul>
+        <li {% if main == 'home'     %} class="active" {% endif %}><a href="{% url 'show_home' %}">Home</a></li>
+        <li {% if main == 'rulesets' %} class="active" {% endif %}><a href="{{ nav_main.rulesets_url }}">Rules</a></li>
+        <li {% if main == 'examples' %} class="active" {% endif %}><a href="{{ nav_main.examples_url }}">Examples</a></li>
+        <li {% if main == 'markup'   %} class="active" {% endif %}><a href="{{ nav_main.markup_url   }}">Markup</a></li>
+        <li {% if main == 'tools'    %} class="active" {% endif %}><a href="{{ nav_main.tools_url    }}">Tools</a></li>
+        <li {% if main == 'abouts'   %} class="active" {% endif %}><a href="{{ nav_main.abouts_url   }}">About</a></li>
+      </ul>
+    </div>
+    <div id="nav_bread_crumbs" role="navigation" aria-labelledby="nav_bread_crumbs_label">
+      <h2 id="nav_bread_crumbs_label">Bread Crumbs</h2>
+      <ul>
+        {% if bread_crumbs %}
+        {% for bc in bread_crumbs %}
+        <li><a href="{{bc.href}}">{{bc.title}}</a></li>
+        {% endfor %}
+        {% else %}
+        <li><a href="{% url 'show_home' %}">Home</a></li>        
+        {% endif %}
+      </ul>
+    </div>
+    
+    <div id="container" >
+      <div id="nav_options" role="navigation" aria-labelledby="id_nav_options_label">
+        {% block nav_options %}
+        {% endblock %}
+      </div>
+      <div id="main" role="main">
+        <h1>{{ title|safe }}</h1>
+        {% block content %}
+        {% endblock %}
+      </div>
+    </div>
+    <div id="contentinfo" role="contentinfo">
+      Copyright Open Accessibility Alliance 2013
+    </div>
+    {% block bottom_scripts %}
+    {% endblock %}
+  </body>
+</html>

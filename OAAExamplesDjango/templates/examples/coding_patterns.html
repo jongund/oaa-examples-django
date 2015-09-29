@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div role="navigation" aria-labelledby="id_toc_h2">
+    
+    <h2 id="id_toc_h2">Number of Examples by Coding Pattern Topic</h2>
+    
+    {% if coding_patterns.all.count %}
+    <table aria-labelledy="id_toc_h2" class="toc">
+        <thead>
+            <th>Coding Pattern Topic</th>
+            <th class="num">Number of Examples</th>
+        </thead>
+        <tbody>
+            
+            {% for cp in coding_patterns.all %}
+            <tr {% if forloop.counter|divisibleby:"2" %} class="even" {% else %} class="odd" {% endif %}>
+                <td><a href="#id_cp_{{g.slug}}">{{cp.title_html|safe}}</a></td>
+                <td class="num">{{ cp.get_example_count }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>  
+    </table>
+    {% else %}
+    <p class="none">no coding pattern topics defined</p>
+    {% endif %}
+</div>
+
+<h2>Examples by Coding Pattern Topic</h2>
+
+  {% if coding_patterns.all.count %}
+  
+  {% for cp in coding_patterns.all %}
+  
+   <h3><a id="#id_cp_{{cp.slug}}"></a>{{cp.title_html|safe}}</h3>
+
+   <div class="desc">{{cp.description_html|safe}}</div>
+
+   <table aria-labelledby="id_h2_details">
+    <thead>
+        <tr>      
+            <th class="text">Examples</th>
+            <th class="num">Rules Passed</th>
+            <th class="num">Rules Failed</th>
+        </tr>  
+    </thead>
+    <tbody>  
+        {% if cp.examples.all.count %}
+        {% for e in cp.examples.all %}
+        <tr>
+            <td class="text"><p><a id="EXAMPLE_{{e.example_id}}" href="{{ e.get_absolute_url }}">{{ e.title_html|safe }}</a></p></td>                   
+            {% if e.get_rules_passed_count %}
+            <td class="num pass">{{ e.get_rules_passed_count }}</td>
+            {% else %}
+            <td class="num zero">0</td>  
+            {% endif %}
+            {% if e.get_rules_failed_count %}          
+            <td class="num fail">{{ e.get_rules_failed_count }}</td>
+            {% else %}
+            <td class="num zero">0</td>  
+            {% endif %}  
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td class="text none">no examples</td>                   
+            <td class="num zero">0</td>  
+            <td class="num zero">0</td>  
+        </tr> 
+        {% endif %}
+    </tbody>
+   </table>     
+
+  {% endfor %}
+  {% else %}
+  <p class="none">no coding pattern topics defined</p>
+  {% endif %}
+
+
+  <div class="addrule"> <a href="">add example</a> </div>
+{% endblock %}
+
+{% block nav_options %}
+{% include 'examples/example_options.html' %}
+{% endblock %}

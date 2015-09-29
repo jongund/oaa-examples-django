@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+{% block content %}
+  
+  <h2>Add a rule that this example applies too</h2>
+  
+  <form action="" method="post" class="add_element">{% csrf_token %}
+    <h3>Select the rule this example describes</h3>
+    {{ form.rule }}
+    <h3>Select the techniques used in this example</h3>
+    {{ form.techniques }}
+    <h3>Select wether this example passes its manual check</h3>
+    {{ form.manual_check }}
+    <h3>Select wether this rule is validated</h3>
+    {{ form.validation }}
+    
+    <input type="submit" value="Save">
+    
+
+    
+  </form>
+  
+
+  <p>This page will not work if your browser has javascript disabled</p>
+  
+  
+  <script type='text/javascript'>
+  
+    var node = document.getElementById('id_rule');
+  
+    var techniques   = document.getElementById('id_techniques');
+    var manual_check = document.getElementById('id_manual_check');
+    var validation   = document.getElementById('id_validation');
+  
+    // change the default size of the select boxes
+     node.size = 4;
+     techniques.size = 4;
+     manual_check.size = 3;
+     validation.size = 3;
+  
+    function onRuleChange(event){
+      var key = node.options[node.selectedIndex].innerHTML;
+      var map = {{ rules_to_techniques|safe }};
+      rule_techniques = map[key];
+      for (var i = 0; i < techniques.length; i ++)
+      {
+        var visible = false;
+        for (var j = 0; j < rule_techniques.length; j ++)
+        {
+          if(techniques.options[i].innerHTML == rule_techniques[j])
+          {
+            techniques.options[i].style.display = "block";
+            visible = true;
+          }
+          else if(visible == false)
+          {
+            techniques.options[i].style.display = "none";
+          }
+        }
+      }
+    };
+    
+    String.prototype.replaceAll = function(target, replacement) {
+      return this.split(target).join(replacement);
+    };
+    
+    
+    
+    node.addEventListener('change', onRuleChange);
+  </script>
+{% endblock %}

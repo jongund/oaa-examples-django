@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="specification">
+
+{% if spec.element_based %}
+  <table class="specification">
+    <thead>
+      <tr>
+        <th class="text">Element</th>
+        <th class="text">Attribute/Event</th>
+        <th class="text"><abbrev title="Attribute Value">Value</abbrev></th>
+        <th class="text">Rules</th>
+        <th class="text">Examples</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for elem in element_definitions %}
+      <tr {% if forloop.counter|divisibleby:"2" %} class="even" {% else %} class="odd" {% endif %}>
+        <td class="text top"><a name="{{ elem }}"></a>{{ elem.element }}</td>
+        <td class="text top">{{ elem.attribute }}</td>
+        <td class="text top">{{ elem.value }}</td>
+        
+        {% if elem.rules.all.count %}
+        <td class="text">
+          <ul>
+            {% for r in elem.rules.all %}
+            <li><a href="{{r.get_absolute_url}}">{{ r.summary_html|safe }}</a></li>
+        {% endfor %}
+          </ul>
+        </td>  
+        {% else %}
+        <td class="none">none</td>        
+        {% endif %}
+        
+        {% if elem.examples.all.count %}
+        <td class="text">
+          <ul>
+            {% for e in elem.examples.all %}
+            <li><a href="{{get_absolute_url}}">{{ e.title_html|safe }}</a></li>
+            {% endfor %}
+          </ul>
+        </td>  
+        {% else %}
+        <td class="none">none</td>        
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <table class="specification">
+    <thead>
+      <tr>
+        <th class="text">Property</th>
+        <th class="text"><abbrev title="Property Value">Value</abbrev></th>
+        <th class="text">Rules</th>
+        <th class="text">Examples</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for elem in element_definitions %}
+      <tr {% if forloop.counter|divisibleby:"2" %} class="even" {% else %} class="odd" {% endif %}>
+        <td class="text top"><a name="{{ elem }}"></a>{{ elem.element }}</td>
+        <td class="text top">{{ elem.value }}</td>
+        {% if elem.rules.all.count %}
+        <td class="text">
+          <ul>
+            {% for r in elem.rules.all %}
+            <li><a href="{{ r.get_absolute_url }}">{{ r.summary_html|safe }}</a></li>
+            {% endfor %}
+          </ul>
+        </td>  
+        {% else %}
+        <td class="none">none</td>        
+        {% endif %}
+        
+        {% if elem.examples.all.count %}
+        <td class="text">
+          <ul>
+            {% for e in elem.examples.all %}
+            <li><a href="{{ e.get_absolute_url }}">{{ e.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </td>  
+        {% else %}
+        <td class="none">none</td>        
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endif %}
+  
+  
+</div>
+{% endblock %}
+
+
+
+{% block nav_options %}
+<h2 id="id_nav_options_label"><a href="{{ nav_main.markup_url }}">Markup Options</a></h2>
+<ul>
+  {% for s in specs.all %}
+  <li  {%if s.url_slug == option %} class="active" {% endif %}><a href="{{ s.get_absolute_url }}">{{ s.abbr }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}

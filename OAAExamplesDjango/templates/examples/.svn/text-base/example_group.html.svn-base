@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="examples">
+ 
+    <table aria-labelledby="id_h2_summary">
+       <thead>
+           <tr>
+               <th class="text">Example Description</th>
+               <th class="num"><abbr title="Number of Rules that Pass in Example">Rules Pass</abbr></th>
+             <th class="num"><abbr title="Number of Rules that Fail in Example">Rules Fail</abbr></th>
+           </tr>
+       </thead>
+       <tbody>
+         {% if example_group.get_example_count %}
+         {% for e in example_group.examples.all %}
+         <tr {% if forloop.counter|divisibleby:"2" %} class="even" {% else %} class="odd" {% endif %}>
+           <td><a href="{{ e.get_absolute_url }}">{{e.title_html|safe}}</a></td>
+           {% if e.get_rules_passed_count %}
+             <td class="num pass">{{ e.get_rules_passed_count }}</td>
+           {% else %}
+           <td class="num zero">-</td>
+           {% endif %}
+           {% if e.get_rules_failed_count %}
+           <td class="num fail">{{ e.get_rules_failed_count }}</td>
+           {% else %}
+           <td class="num zero">-</td>
+           {% endif %}
+         </tr>  
+         {% endfor %}    
+         {% else %}
+         <tr>
+           <td class="none">no examples</td>
+           <td class="num zero">-</td>
+           <td class="num zero">-</td>
+         </tr>    
+         {% endif %}
+       </tbody>       
+   </table>
+    
+    
+</div>
+{% endblock %}
+
+{% block nav_options %}
+{% include 'examples/example_options.html' %}
+{% endblock %}
