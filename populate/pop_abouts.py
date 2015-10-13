@@ -5,7 +5,7 @@ sys.path.append(os.path.abspath('..'))
 #import coding.settings as settings
 #setup_environ(settings)
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "OAAExamplesDjango.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "oaa_examples_django.settings")
 from django.conf import settings
 
 import django
@@ -39,17 +39,17 @@ The accessible coding practices resources provides tools, rules, techniques and 
 The resources of the website are developed through the work of the Open Accessibility Alliance and the Open Ajax Accessibility Task Force.
 
 
-h2. Rulesets
+h2. WCAG 2.0
 
-* A collection of rules that support accessibility and the implementation of W3C WCAG 2.0 requirements
-* Rulesets contain both required and recommended rules
-* Ruleset differ in the rules and rules that are required based on the accessibility goals and skills of the developers
+* Content Required
+* Content Required
+* Content Required
 
-h2. Rules
+h2. Rule Categories
 
-* Rules are used to test the accessibility features of a website 
-* Rules identify the coding techniques that can used to satisfy the rule requirements
-* Rules can result in violations (i.e. required rules fail), warnings (i.e. recommended rule fails), manual checks or pass
+* Content Required 
+* Content Required
+* Content Required
 
 h2. Examples
 
@@ -59,10 +59,6 @@ h2. Examples
 h2. Markup
 
 * Markup provides information on how a particular element or attribute may related to a rule or example
-
-h2. Tools
-
-* Open source tools that are freely avaible that support the rulesets and rules found in the coding practice resources
  
 """
   

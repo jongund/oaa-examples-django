@@ -2,7 +2,7 @@ import re
 # Formatter
 
 #from coding.settings_local import STATIC_URL
-from OAAExamplesDjango.settings import STATIC_URL
+from oaa_examples_django.settings import STATIC_URL
 
 
 def OAAMarkupToHTML(str):

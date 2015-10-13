@@ -8,7 +8,7 @@ import datetime
 #from django.core.management import setup_environ 
 #import coding.settings as settings
 #setup_environ(settings)
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "OAAExamplesDjango.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "oaa_examples_django.settings")
 from django.conf import settings
 
 import textile

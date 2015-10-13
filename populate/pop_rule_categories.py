@@ -6,7 +6,7 @@ from django.core.exceptions import ObjectDoesNotExist
 #import coding.settings as settings
 #setup_environ(settings)
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "OAAExamplesDjango.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "oaa_examples_django.settings")
 from django.conf import settings
 
 """This file is for updating and populating the database with Rule Categories and Rulesets"""

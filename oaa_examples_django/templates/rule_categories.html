@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div id='rule_categories'>
+    <ul>
+        {% for spec in specs %}
+        <a href={{spec.url}}><h2>{{spec.abbr}}</h2></a>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+
+
+
+{% block nav_options %}
+{% endblock %}

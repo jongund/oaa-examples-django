@@ -1,4 +1,4 @@
-"""OAAExamplesDjango URL Configuration
+"""oaa_examples_django URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.8/topics/http/urls/
@@ -19,21 +19,22 @@ from django.contrib import admin
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     
-     # Home
-    url(r'^$',                                'abouts.views.home',             name='show_home'),
+    # Home
+    url(r'^$', 'abouts.views.home', name='show_home'),
+    # Rule Categories
+    url(r'^rule_categories/', include('ruleCategories.urls')),
+    
+    # WCAG 2.0
+    url(r'^wcag20/', include('wcag20.urls')),
     
     # About
     url(r'^abouts/(?P<about_slug>[\w-]+)/$',  'abouts.views.about',            name='show_about'),
     
     #Examples
     url(r'^examples/$', 'examples.views.rule_categories', name='show_examples'),
-    url(r'^example_rc/(?P<rule_category_slug>[\w-]+)/$', 'examples.views.ruleCategory', name='show_examples_for_rule_category'),
-    url(r'^example/(?P<example_id>[\w-]+)/$', 'examples.views.example', name='show_example'),
-
-    url(r'^examplep/(?P<example_slug>[\w-]+)/$', 'examples.views.examplePermanent', name='show_example_permanent'),
     
     url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
     # Markup
-    url(r'^markup/(?P<url_slug>[\w-]+)/$', 'markup.views.specfication', name='show_markup'),
+    url(r'^markup/$', 'markup.views.specfication', name='show_markup'),
 ]

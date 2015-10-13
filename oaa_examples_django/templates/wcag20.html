@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div id='wcag20'>
+    <ul>
+        {% for spec in principle %}
+        <a href={{spec.url}}><h2>{{spec.abbr}}</h2></a>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+
+
+
+{% block nav_options %}
+{% endblock %}
