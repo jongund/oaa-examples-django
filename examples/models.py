@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 import textile
 import datetime
+import markdown
 
 from utilities import OAAMarkupToText, OAAMarkupToHTML
 from utilities import HTMLToSourceCodeFormat, OAAMarkupRemoveHighlightCode
@@ -19,6 +20,14 @@ from markup.models         import ElementDefinition
 #from manualChecks.models   import ManualCheck
 
 from django.core import urlresolvers
+
+EXAMPLE_PRACTICE = (
+    ('bad', 'Not accessible'),
+    ('poor', 'Poor Practice'),
+    ('good', 'Good Practice'),
+    ('best', 'Best Practice'),
+)
+
 
 EXAMPLE_STATUS = (
     ('acc', 'Accepted'),
@@ -44,12 +53,22 @@ class Example(Updated):
   title            = models.CharField(max_length=512) #markdown
   title_html       = models.CharField(max_length=1024, default="") #plaintext version of title
   title_text       = models.CharField(max_length=512, default="")
-  description      = models.TextField("Describe features of example", null=True,blank=True)
-  description_html = models.TextField(default="")
+
+  a11y_features      = models.TextField("Describe accessibility features of example", null=True,blank=True)
+  a11y_features_html = models.TextField(default="")
+
+  a11y_issues      = models.TextField("Describe accessibility issues of example", null=True,blank=True)
+  a11y_issues_html = models.TextField(default="")
+
+
   keyboard         = models.TextField("Information on keyboard shortcuts", null=True, blank=True)
   keyboard_html    = models.TextField(default="")
+
+  practice         = models.CharField(max_length=8,choices=EXAMPLE_PRACTICE,default='best')
   status           = models.CharField(max_length=8,choices=EXAMPLE_STATUS,default='acc')
+    
   external_url     = models.URLField("External URL to example", max_length=512, blank=True)
+
   style            = models.TextField('CSS code', null=True,blank=True) #markup for highlighting
   style_code       = models.TextField(default='')
   style_source     = models.TextField(default='')
@@ -84,10 +103,10 @@ class Example(Updated):
       self.title_text       = OAAMarkupToText(self.title)
       
     if self.description:  
-      self.description_html = textile.textile(self.description)
+      self.description_html = markdown.markdown(self.description)
       
     if self.keyboard:  
-      self.keyboard_html = textile.textile(self.keyboard)
+      self.keyboard_html = markdown.markdown(self.keyboard)
       
     if self.style:
       self.style_code   = OAAMarkupRemoveHighlightCode(self.style)
