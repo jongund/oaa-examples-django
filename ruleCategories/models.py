@@ -23,7 +23,7 @@ class RuleCategory(models.Model):
     verbose_name_plural = "Rule Categories"
     ordering = ['order','title']
     
-  def __unicode__(self):
+  def __str__(self):
     return self.title
 
   def get_examples_url(self):

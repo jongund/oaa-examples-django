@@ -30,14 +30,13 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Main Menu</a>
+                    <a class="navbar-brand" href="#">OAA Practice</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li {% if main == 'home'     %} class="active" {% endif %}><a href="{% url 'show_home' %}">Home</a></li>
-                        <li {% if main == 'wcag20'   %} class="active" {% endif %}><a href="{% url 'wcag20' %}">WCAG 2.0</a></li>
-                        <li {% if main == 'rulecategories' %} class="active" {% endif %}><a href="{% url 'rule_categories' %}">Rule Categories</a></li>
-                        <li {% if main == 'examples' %} class="active" {% endif %}><a href="{% url 'show_examples' %}">Examples</a></li>
+                        <li {% if main == 'wcag20'   %} class="active" {% endif %}><a href="{% url 'show_wcag20' %}">WCAG 2.0</a></li>
+                        <li {% if main == 'rule_categories' %} class="active" {% endif %}><a href="{% url 'show_rule_categories' %}">Rule Categories</a></li>
                         <li {% if main == 'markup'   %} class="active" {% endif %}><a href="{% url 'show_markup' %}">Markup</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -52,35 +51,26 @@
             </div>
         </nav>
         <div class="container">
-<!--            <div id="nav_bread_crumbs" role="navigation" aria-labelledby="nav_bread_crumbs_label">
-                <h2 id="nav_bread_crumbs_label">Bread Crumbs</h2>
-                <ul>
-                    {% if bread_crumbs %}
-                    {% for bc in bread_crumbs %}
-                    <li><a href="{{bc.href}}">{{bc.title}}</a></li>
-                    {% endfor %}
-                    {% else %}
-                    <li><a href="{% url 'show_home' %}">Home</a></li>        
-                    {% endif %}
-                </ul>
-            </div>-->
-
             <div id="container">
-                <div id="nav_options" role="navigation" aria-labelledby="id_nav_options_label">
-                    {% block nav_options %}
-                    {% endblock %}
-                </div>
+                <!--<div id="nav_options" role="navigation" aria-labelledby="id_nav_options_label">
+{% block nav_options %}
+{% endblock %}
+</div>-->
                 <div id="main" role="main">
+                    <ol class="breadcrumb">
+                        {% block breadcrumb %}
+                        {% endblock %}
+                    </ol>
                     <h1>{{ title|safe }}</h1>
                     {% block content %}
                     {% endblock %}
                 </div>
             </div>
         </div>
-        
+
         <footer>
             <div class="container">
-                <div class="text-center">Copyright Open Accessibility Alliance 2013</div>
+                <div class="text-center">Copyright Open Accessibility Alliance 2013-2016</div>
                 <div class="text-center">Accessible Web Coding Practices <span>(Prototype)</span></div>
                 <div class="text-center">A project of the <a href="http://collaborate.athenpro.org/group/open-accessibility-alliance/">Open Accessibility Alliance</a> and <a href="http://www.openajax.org/member/wiki/Accessibility">OpenAjax Accessibility Task Force</a></div>
             </div>

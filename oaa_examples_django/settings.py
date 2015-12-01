@@ -38,13 +38,13 @@ LOGOUT_URL = '/logout/'
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
-STATIC_URL = BASE_DIR+'static/'
+STATIC_URL = '/static/'
 print("STATIC_URL: " + STATIC_URL)
 STATIC_ROOT = join(BASE_DIR, STATIC_URL)
 print("STATIC_ROOT: " + STATIC_ROOT)
 
 STATICFILES_DIRS = (
-    join(APP_DIR, "oaa_examples_django/static/"),
+    join(APP_DIR, "oaa_examples_django/static"),
 )
 print(STATICFILES_DIRS)
 

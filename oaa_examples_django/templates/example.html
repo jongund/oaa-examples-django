@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+  <li><a href="{% url 'show_home' %}">Home</a></li>
+  <li><a href="{% url 'show_rule_categories' %}">Rule Categories</a></li>
+  <li>{{ example.permanent_slug}}</li>
+
+{% endblock %}
+
+{% block bottom_styles %}
+
+  <style type="text/css">
+    #example_html {
+      margin-top: 1em;
+      padding: 1em;
+      background-color: #EEEEEE;
+      border: black thin solid;
+    }
+    
+    div.code {
+      font-family: monospace;
+      padding: 1em;
+      border: thin solid black;
+      background-color: #FFFFEE;
+      color: #202020;
+    }
+
+    div.code strong {
+      font-weight: bold;
+      color: black;
+    }
+
+    div.code em {
+      font-weight: normal;
+      color: blue;
+    }
+        
+    
+  </style>
+
+  {% if example.style %}
+  <style type="text/css">
+    {{ example.style_code|safe }}
+  </style>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+
+<div id="example">
+    
+  <h2>Status</h2>
+  <p>{{ example.get_example_status_as_html|safe }}</p>
+
+  <h2>Description</h2>
+  <div class="description">
+  {% if example.description_html %}
+  {{ example.description_html|safe }}</p>  
+  {% else %}
+    <span class="none">no description available</span>
+  {% endif %}
+  </div>
+
+  {% if example.keyboard_html %}
+  <h2>Keyboard Support</h2>
+  <div class="description">
+  {{ example.keyboard_html|safe }} 
+  {% else %}
+  {% endif %}
+  </div>
+         
+  <h2>Rules Featured in the Example</h2>
+  {% if example.rule_references.all.count %}
+  <table aria-labelledby="examples">
+    <thead>
+      <tr>
+        <th class="text">Rule Category</th>
+        <th class="text">Rule Description</th>
+        <th class="text"><abbrev title="Web Content Accessibility Guidelines Primary Success Criteria">WCAG</abbrev></th>
+        <th class="text"><abbrev title="WCAG 2.0 Level of Rule">Level</abbrev></th>
+        <th class="text"><abbrev title="Does the example pass or fail automatic validation">Validation</abbrev></th>
+        <th class="text"><abbrev title="Does the example pass or fail a manual check">Manual Check</abbrev></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for rr in example.rule_references.all %}
+      <tr {% if forloop.counter|divisibleby:"2" %} class="even" {% else %} class="odd" {% endif %}>
+        <td class="text top">{{ rr.rule.rule_category }} </td>
+          <td class="text">
+          <a href="{{ rr.rule.get_absolute_url }}" id="id_title_edit_{{ forloop.counter }}">{{ rr.rule.summary_html|safe }}</a>
+          {% if rr.techniques.all.count %}
+          <p class="techniques">Techniques used in example</p>
+          <ul class="techniques">
+            {% for t in rr.techniques.all %}
+            {% if t.abbrev_html %}
+            <li>{{ t.abbrev_html|safe}}</li>
+            {% else %}
+            <li>{{ t.title_html|safe}}</li>
+            {% endif %}
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </td>    
+        <td class="text top"><a href="{{ rr.rule.wcag_primary.url }}" target="_specification">{{ rr.rule.wcag_primary.number }}</a></td>        
+        <td class="text top">{{ rr.rule.wcag_primary.show_level_html_code|safe }}</td>        
+        <td class="text top">{{ rr.get_validation_html|safe }}</td>
+        <td class="text top">{{ rr.get_manual_check_html|safe }}</td>
+        {% if example_editor and rule_editor %} <td class="text top"><a target="_blank" href="{{ link }}" aria-describedby="id_title_edit_{{ forloop.counter }}">Edit</a></td> {% endif %}
+      </tr>
+      {% endfor %}            
+    </tbody>    
+  </table>
+  {% else %}
+  <p class="none">none</p>
+  {% endif %}
+  
+  {% if example_editor and rule_editor %}
+    <div class="edit_object"><a target="_blank" href="{% url 'add_rule_reference' example_id %}">Add Rule</a></div>
+  {% endif %}    
+  
+  <div id="example_section">
+    <h2>Example Start</h2>
+    <div id="example_html" role="region" aria-label="Example">
+    {{ example.html_code|safe }}
+    </div>
+    
+    {% if example.script_refs.count %}
+    {% for sr in example.script_refs.all %}
+    <script type="text/javascript" src="{{ STATIC_URL }}{{sr.script}}"></script>
+    {% endfor %}
+    {% endif %}     
+        
+    {% if example.script %}
+    <script type="text/javascript">
+    {{ example.script_code|safe }}
+    </script>
+    {% endif %}
+    
+    <h2>Example End</h2>
+  </div>
+  
+  <h2>HMTL Source Code</h2>
+  <div class="code">
+    {{ example.html_source|safe }}    
+  </div>
+  
+  {% if example.style_source != ''%}
+  <h2>CSS Source Code</h2>
+  <div class="code">
+    {{ example.style_source|safe }}    
+  </div>
+  {% endif %}
+  
+  {% if example.script_source != '' %}
+  <h2>Javascript Source Code</h2>
+  <div class="code">
+    {{ example.script_source|safe }}    
+  </div>
+  {% endif %}
+  
+</div>
+
+{% endblock %}
+

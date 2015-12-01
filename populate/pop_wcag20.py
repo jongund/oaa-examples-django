@@ -22,29 +22,23 @@ WCAG20_SuccessCriterion.objects.all().delete()
 
 def create_wcag20(wcag20):
     print ("wcag 2.0")
-    flag = True
-    try:
-        
-        
-    except ObjectDoesNotExist:
-        print ("  Creating WCag 2.0")
-        for principle in wcag20:
-            principle_url = 'http://www.w3.org/TR/WCAG20/#' + principle[2]
-            wcag20_principle = WCAG20_Principle(num=principle[0], title=principle[1], url=principle_url)
-            print (principle[1])
-            wcag20_principle.save()
-            for guideline in principle[3]:
-                guideline_url = 'http://www.w3.org/TR/WCAG20/#' + guideline[2]
-                wcag20_guideline = WCAG20_Guideline(principle=wcag20_principle, num=guideline[0], title=guideline[1], url=guideline_url)
-                print ("  " + guideline[1])
-                wcag20_guideline.save()
-                for requirement in guideline[3]:
-                    requirement_url = 'http://www.w3.org/TR/WCAG20/#' + requirement[2]
-                    meet_url        = 'http://www.w3.org/WAI/WCAG20/quickref/#qr-' + requirement[2] + '.html'
-                    understand_url  = 'http://www.w3.org/TR/WCAG20/' + requirement[2] + '.html'
-                    wcag20_requirement = WCAG20_SuccessCriterion(guideline=wcag20_guideline, num=requirement[0], title=requirement[1], url=requirement_url, url_meet=meet_url, url_understand=understand_url, level=requirement[3])
-                    print ("    " + requirement[1])
-                    wcag20_requirement.save()
+    for principle in wcag20:
+        principle_url = 'http://www.w3.org/TR/WCAG20/#' + principle[2]
+        wcag20_principle = WCAG20_Principle(num=principle[0], title=principle[1], url=principle_url)
+        print (principle[1])
+        wcag20_principle.save()
+        for guideline in principle[3]:
+            guideline_url = 'http://www.w3.org/TR/WCAG20/#' + guideline[2]
+            wcag20_guideline = WCAG20_Guideline(principle=wcag20_principle, num=guideline[0], title=guideline[1], url=guideline_url)
+            print ("  " + guideline[1])
+            wcag20_guideline.save()
+            for requirement in guideline[3]:
+                requirement_url = 'http://www.w3.org/TR/WCAG20/#' + requirement[2]
+                meet_url        = 'http://www.w3.org/WAI/WCAG20/quickref/#qr-' + requirement[2] + '.html'
+                understand_url  = 'http://www.w3.org/TR/WCAG20/' + requirement[2] + '.html'
+                wcag20_requirement = WCAG20_SuccessCriterion(guideline=wcag20_guideline, num=requirement[0], title=requirement[1], url=requirement_url, url_meet=meet_url, url_understand=understand_url, level=requirement[3])
+                print ("    " + requirement[1])
+                wcag20_requirement.save()
 
 wcag20 = (
   ('1', 'Perceivable - Information and user interface components must be presentable to users in ways they can perceive.', 'perceivable',

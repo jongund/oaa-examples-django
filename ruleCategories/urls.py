@@ -1,6 +1,6 @@
 from django.conf.urls import url
-from .views import RuleCategoryView
+from .views import rule_categories
 
 urlpatterns = [
-    url(r'^$', RuleCategoryView.as_view(), name="rule_categories"),
+        url(r'^$', rule_categories.as_view(), name='show_rule_categories'),
 ]

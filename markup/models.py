@@ -72,7 +72,7 @@ class ElementDefinition(models.Model):
       return True
     return False  
 
-  def __unicode__(self):
+  def __str__(self):
       tmpstring = self.element
       if self.attribute:
           tmpstring += '[' + self.attribute

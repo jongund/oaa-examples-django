@@ -141,7 +141,7 @@ html_font           = create_ElementDefinition( html, "font",    "",  "",   "htt
 html_marquee        = create_ElementDefinition( html, "marquee", "",  "",   "",    "", "")
 html_blink          = create_ElementDefinition( html, "blink",   "",  "",   "",    "", "")
 
-html5 = create_spec("html 5", "html 5", "http://www.whatwg.org/specs/web-apps/current-work/multipage/", "html5", "html5", True)
+html5 = create_spec("HTML 5", "HTML 5", "http://www.whatwg.org/specs/web-apps/current-work/multipage/", "html5", "html5", True)
 
 html5_nav      = create_ElementDefinition( html5, "nav",      "", "", "http://www.whatwg.org/specs/web-apps/current-work/multipage/sections.html#the-nav-element",          "", "")
 html5_article  = create_ElementDefinition( html5, "article",  "", "", "http://www.whatwg.org/specs/web-apps/current-work/multipage/sections.html#the-article-element",      "", "")

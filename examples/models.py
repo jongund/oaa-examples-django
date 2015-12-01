@@ -2,8 +2,6 @@ from django.db import models
 from PIL import Image
 from django.contrib.auth.models import User
 
-
-import textile
 import datetime
 import markdown
 
@@ -41,28 +39,26 @@ EXAMPLE_STATUS_HTML_CODE = (
     ('dep', '<span class="dep">Deprecated</span>'),
 )
 
-
-#From rules.models
 class Updated(models.Model):
   updated_date   = models.DateTimeField(auto_now=True, editable=False)
-  #updated_editor = models.ForeignKey(User, editable=True)
 
-class Example(Updated):
+
+class Example(models.Model):
   example_id       = models.AutoField(primary_key=True)  
-  permanent_slug   = models.SlugField(null=True,blank=True) #keep it
+  permanent_slug   = models.SlugField(null=True,blank=False) #keep it
   title            = models.CharField(max_length=512) #markdown
-  title_html       = models.CharField(max_length=1024, default="") #plaintext version of title
-  title_text       = models.CharField(max_length=512, default="")
+  title_html       = models.CharField(max_length=1024, default="", editable=False) #plaintext version of title
+  title_text       = models.CharField(max_length=512, default="", editable=False)
 
   a11y_features      = models.TextField("Describe accessibility features of example", null=True,blank=True)
-  a11y_features_html = models.TextField(default="")
+  a11y_features_html = models.TextField(default="", editable=False)
 
   a11y_issues      = models.TextField("Describe accessibility issues of example", null=True,blank=True)
-  a11y_issues_html = models.TextField(default="")
+  a11y_issues_html = models.TextField(default="", editable=False)
 
 
   keyboard         = models.TextField("Information on keyboard shortcuts", null=True, blank=True)
-  keyboard_html    = models.TextField(default="")
+  keyboard_html    = models.TextField(default="", editable=False)
 
   practice         = models.CharField(max_length=8,choices=EXAMPLE_PRACTICE,default='best')
   status           = models.CharField(max_length=8,choices=EXAMPLE_STATUS,default='acc')
@@ -70,17 +66,16 @@ class Example(Updated):
   external_url     = models.URLField("External URL to example", max_length=512, blank=True)
 
   style            = models.TextField('CSS code', null=True,blank=True) #markup for highlighting
-  style_code       = models.TextField(default='')
-  style_source     = models.TextField(default='')
+  style_code       = models.TextField(default='', editable=False)
+  style_source     = models.TextField(default='', editable=False)
   html             = models.TextField('HTML code for inside body tag', null=True,blank=True)
-  html_code        = models.TextField(default='')
-  html_source      = models.TextField(default='')
+  html_code        = models.TextField(default='', editable=False)
+  html_source      = models.TextField(default='', editable=False)
   script           = models.TextField('Javascript code', null=True,blank=True)
-  script_code      = models.TextField(default='')
-  script_source    = models.TextField(default='')
-  #onload           = models.CharField(null=True,blank=True, max_length=128)
+  script_code      = models.TextField(default='', editable=False)
+  script_source    = models.TextField(default='', editable=False)
   markup           = models.ManyToManyField(ElementDefinition,       related_name='examples', blank=True, null=True)
-  rule_category    = models.ForeignKey
+  rule_category    = models.ForeignKey(RuleCategory,related_name='examples', blank=True, null=True)
   success_criteria = models.ManyToManyField(WCAG20_SuccessCriterion, related_name='examples', blank=True, null=True)
   order            = models.IntegerField(default=0)
   
@@ -102,12 +97,13 @@ class Example(Updated):
       self.title_html       = OAAMarkupToHTML(self.title)
       self.title_text       = OAAMarkupToText(self.title)
       
-    if self.description:  
-      self.description_html = markdown.markdown(self.description)
-      
     if self.keyboard:  
       self.keyboard_html = markdown.markdown(self.keyboard)
+
+    if self.a11y_features:  
+      self.a11y_features_html = markdown.markdown(self.a11y_features)
       
+
     if self.style:
       self.style_code   = OAAMarkupRemoveHighlightCode(self.style)
       self.style_source = HTMLToSourceCodeFormat(self.style)
@@ -122,17 +118,10 @@ class Example(Updated):
       
       
     self.updated_date     = datetime.datetime.now()
-    
-    #self.rule_categories.clear()
-    #self.success_criteria.clear()
-    
-   # for rr in self.rule_references.all():
-    #  self.rule_categories.add(rr.rule.rule_category)
-    #  self.success_criteria.add(rr.rule.wcag_primary)
 
     super(Example, self).save() # Call the "real" save() method.  
   
-  def __unicode__(self):
+  def __str__(self):
       return 'Example : ' + self.title_text 
 
   def get_example_abbrev(self):

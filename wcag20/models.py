@@ -101,7 +101,7 @@ class WCAG20_SuccessCriterion(models.Model):
         verbose_name="WCAG 2.0 Success Criterion"
         verbose_name_plural="WCAG 2.0 Success Criteria"
   
-  def __unicode__(self):
+  def __str__(self):
       return 'Success Criterion ' + str(self.guideline.principle.num) + '.' + str(self.guideline.num) + '.' + str(self.num) + ' ' + self.title
      
 
