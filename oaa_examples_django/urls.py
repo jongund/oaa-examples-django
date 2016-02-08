@@ -26,8 +26,8 @@ urlpatterns = [
     url(r'^rc/(?P<permanent_slug>[\w-]+)/$', 'ruleCategories.views.show_example', name='show_rc_example'),
     
     # WCAG 2.0
-    url(r'^wcag20/$', 'wcag20.views.wcag20', name='show_wcag20'),
-    url(r'^wcag20/(?P<permanent_slug>[\w-]+)/$', 'wcag20.views.show_example', name='show_wcag20_example'),
+    #url(r'^wcag20/$', 'wcag20.views.wcag20', name='show_wcag20'),
+    #url(r'^wcag20/(?P<permanent_slug>[\w-]+)/$', 'wcag20.views.show_example', name='show_wcag20_example'),
 
     # About
     url(r'^abouts/(?P<about_slug>[\w-]+)/$', 'abouts.views.about', name='show_about'),

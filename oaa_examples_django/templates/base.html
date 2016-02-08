@@ -5,7 +5,7 @@
         {% if website %}
         <title>{{ website }}</title>
         {% else %}
-        <title>Accessible Web Coding Practices: {{ title }}</title>
+        <title>ARIA Examples: {{ title }}</title>
         {% endif %}
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -30,23 +30,17 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">OAA Practice</a>
+                    <a class="navbar-brand" href="#">ARIA Examples</a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li {% if main == 'home'     %} class="active" {% endif %}><a href="{% url 'show_home' %}">Home</a></li>
-                        <li {% if main == 'wcag20'   %} class="active" {% endif %}><a href="{% url 'show_wcag20' %}">WCAG 2.0</a></li>
                         <li {% if main == 'rule_categories' %} class="active" {% endif %}><a href="{% url 'show_rule_categories' %}">Rule Categories</a></li>
                         <li {% if main == 'markup'   %} class="active" {% endif %}><a href="{% url 'show_markup' %}">Markup</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        {% if user.is_authenticated %}
-                        <p>{{ user.first_name }}  {{ user.last_name }}  {% for organization in user.organization_set.all %}{{ organization.title }}{% endfor %}</p>
-                        <li><a href="{% url 'logout' %}">Logout</a></li>
-                        {% else %}
-                        <li><a href="{% url 'login' %}">Login</a></li>
+                        <li><a href="/admin">Login</a></li>
                     </ul>
-                    {% endif %}
                 </div>
             </div>
         </nav>

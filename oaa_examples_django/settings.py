@@ -14,6 +14,7 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 import os
 import django
 from os.path import join, abspath, dirname
+import json
 
 here = lambda *dirs: join(abspath(dirname(__file__)), *dirs)
 root = lambda *dirs: join(abspath(here("..","..")), *dirs)
@@ -40,13 +41,13 @@ LOGOUT_REDIRECT_URL = "/"
 
 STATIC_URL = '/static/'
 print("STATIC_URL: " + STATIC_URL)
-STATIC_ROOT = join(BASE_DIR, STATIC_URL)
+STATIC_ROOT = join(BASE_DIR, 'static/')
 print("STATIC_ROOT: " + STATIC_ROOT)
 
 STATICFILES_DIRS = (
     join(APP_DIR, "oaa_examples_django/static"),
 )
-print(STATICFILES_DIRS)
+print("STATICFILES_DIRS: " + str(STATICFILES_DIRS))
 
 INSTALLED_APPS = (
     'django.contrib.admin',
@@ -96,14 +97,21 @@ WSGI_APPLICATION = 'oaa_examples_django.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
+SECRET_FILE = join(BASE_DIR, 'secrets.json')
+
+with open(SECRET_FILE) as f:
+    secrets = json.loads(f.read())
+
+def get_secret(setting, secrets = secrets):
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = "Set the {0} environement variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'coding_prod',
-        'USER': 'coding',
-        'PASSWORD': 'DRES2o12DB',
-    }
+    'default': get_secret("DATABASES")
 }
 
 
