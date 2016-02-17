@@ -1,15 +1,49 @@
 {% extends "base.html" %}
 
 {% block breadcrumb %}
-  <li>Home</li>
+<li>Home</li>
 {% endblock %}
 
 {% block content %}
-
-<div id="about">
-
-{{ about.content_html|safe }}    
-
+<div id='home'>
+    <table class="table table-striped table-hover sortable">
+        <thead>
+            <tr>
+                <th>Number</th>
+                <th>Title</th>
+                <th>Features</th>
+                <th>Role</th>
+                <th>Properties</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for example in examples %}
+            <tr>
+                <td>{{ forloop.counter }} {# starting index 1 #}</td>
+                <td><a href="{% url 'show_markup_example' example.permanent_slug %}">{{example.title_html|safe}}</a></td>
+                <td>{{example.a11y_features_html|safe}}</td>
+                <td>
+                    <ul>
+                        {% for m in example.markup.all %}
+                        {% if "role" in m.title %}
+                        <li>{{m.title|slice:"6:-1"}}</li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        {% for m in example.markup.all %}
+                        {% if "role" not in m.title %}
+                        <li>{{m.title|slice:"1:-1"}}</li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}
 

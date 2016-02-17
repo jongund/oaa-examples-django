@@ -21,16 +21,18 @@ urlpatterns = [
     
     # Home
     url(r'^$', 'abouts.views.home', name='show_home'),
+    url(r'^examples/(?P<permanent_slug>[\w-]+)/$', 'abouts.views.show_example',        name='show_home_example'),
+
     # Rule Categories
-    url(r'^rc/$', 'ruleCategories.views.rule_categories', name='show_rule_categories'),
-    url(r'^rc/(?P<permanent_slug>[\w-]+)/$', 'ruleCategories.views.show_example', name='show_rc_example'),
+    #url(r'^rc/$', 'ruleCategories.views.rule_categories', name='show_rule_categories'),
+    #url(r'^rc/(?P<permanent_slug>[\w-]+)/$', 'ruleCategories.views.show_example', name='show_rc_example'),
     
     # WCAG 2.0
     #url(r'^wcag20/$', 'wcag20.views.wcag20', name='show_wcag20'),
     #url(r'^wcag20/(?P<permanent_slug>[\w-]+)/$', 'wcag20.views.show_example', name='show_wcag20_example'),
 
     # About
-    url(r'^abouts/(?P<about_slug>[\w-]+)/$', 'abouts.views.about', name='show_about'),
+    #url(r'^abouts/(?P<about_slug>[\w-]+)/$', 'abouts.views.about', name='show_about'),
     
     url(r'^login/$', 'django.contrib.auth.views.login', name='login'),
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),

@@ -26,7 +26,7 @@ example_obj.order          = order
 example_obj.title       = 'Toolbar using inline images for visual state'
 example_obj.permanent_slug = 'toolbar1'
 
-example_obj.description = """
+example_obj.a11y_features = """
 Simple example of a toolbar widget using inline images to display the visual state of the buttons.
 """
 

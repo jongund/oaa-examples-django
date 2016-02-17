@@ -537,7 +537,7 @@ example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WI
 example_obj.title       = 'Alert example using a modal ARIA dialog box'
 example_obj.permanent_slug = 'alertdialog1'
 
-example_obj.description = """
+example_obj.a11y_features = """
 Simple number guessing game that displays the results of each guess in a modal ARIA dialog box.
 """
 example_obj.keyboard    = """

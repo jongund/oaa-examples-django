@@ -28,7 +28,7 @@ example_obj.order          = order
 example_obj.title       = 'Menubar'
 example_obj.permanent_slug = 'menubar1'
 
-example_obj.description = """
+example_obj.a11y_features = """
 Simple example of a menubar widget.
 """
 example_obj.keyboard    = """
@@ -1607,7 +1607,7 @@ example_obj.order          = order
 example_obj.title       = 'Menubar: ARIA CSS Selectors'
 example_obj.permanent_slug = 'menubar2'
 
-example_obj.description = """
+example_obj.a11y_features = """
 Simple example of a menubar widget using ARIA CSS selectors.
 """
 example_obj.keyboard    = """
