@@ -19,6 +19,7 @@ m5 = ElementDefinition.objects.get(spec=spec_aria10, attribute='aria-hidden')
 # =============================
 
 example_obj             = example_object()
+example_obj.example_id = 1
 example_obj.order          = order
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
 example_obj.title       = 'Alert role example using an ARIA alert box'
@@ -532,6 +533,7 @@ example1 = create_example(example_obj)
 order += 1
 
 example_obj             = example_object()
+example_obj.example_id = 2
 example_obj.order          = order
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
 example_obj.title       = 'Alert example using a modal ARIA dialog box'

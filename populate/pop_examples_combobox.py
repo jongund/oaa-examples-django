@@ -20,6 +20,7 @@ m6 = ElementDefinition.objects.get(spec=spec_aria10, attribute='aria-owns')
 # =============================
 
 example_obj             = example_object()
+example_obj.example_id = 9
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
 example_obj.order          = order
 example_obj.title       = 'Combobox with aria-autocomplete="none"'
@@ -1130,6 +1131,7 @@ example1 = create_example(example_obj)
 order += 1
 
 example_obj             = example_object()
+example_obj.example_id = 10
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
 example_obj.order          = order
 example_obj.title       = 'Combobox with aria-autocomplete="inline"'
@@ -2264,6 +2266,7 @@ example2 = create_example(example_obj)
 order += 1
 
 example_obj             = example_object()
+example_obj.example_id = 11
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
 example_obj.order          = order
 example_obj.title       = 'Combobox with aria-autocomplete="list"'
@@ -3286,6 +3289,7 @@ example3 = create_example(example_obj)
 order += 1
 
 example_obj             = example_object()
+example_obj.example_id = 12
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
 example_obj.order          = order
 example_obj.title       = 'Combobox with aria-autocomplete="none" and role="combobox" on wrapping div'
@@ -4406,6 +4410,7 @@ example4 = create_example(example_obj)
 order += 1
 
 example_obj             = example_object()
+example_obj.example_id = 13
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
 example_obj.order          = order
 example_obj.title       = 'Combobox with aria-autocomplete="inline" and role="combobox" on wrapping div'
@@ -5549,6 +5554,7 @@ example5 = create_example(example_obj)
 order += 1
 
 example_obj             = example_object()
+example_obj.example_id = 14
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
 example_obj.order          = order
 example_obj.title       = 'Combobox with aria-autocomplete="list" and role="combobox" on wrapping div'

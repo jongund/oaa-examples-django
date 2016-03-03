@@ -23,6 +23,7 @@ m9 = ElementDefinition.objects.get(spec = spec_aria10, attribute='aria-haspopup'
 # =============================
 
 example_obj             = example_object()
+example_obj.example_id = 25
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
 example_obj.order          = order
 example_obj.title       = 'Menubar'
@@ -1602,6 +1603,7 @@ example1 = create_example(example_obj)
 order += 1
 
 example_obj             = example_object()
+example_obj.example_id = 26
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
 example_obj.order          = order
 example_obj.title       = 'Menubar: ARIA CSS Selectors'

@@ -45,7 +45,7 @@ STATIC_ROOT = join(BASE_DIR, 'static/')
 print("STATIC_ROOT: " + STATIC_ROOT)
 
 STATICFILES_DIRS = (
-    join(APP_DIR, "oaa_examples_django/static"),
+    join(APP_DIR, "oaa-examples-django/static/"),
 )
 print("STATICFILES_DIRS: " + str(STATICFILES_DIRS))
 

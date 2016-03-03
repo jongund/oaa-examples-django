@@ -21,6 +21,7 @@ m7 = ElementDefinition.objects.get(spec=spec_aria10, attribute='aria-valuenow')
 # =============================
 
 example_obj             = example_object()
+example_obj.example_id = 33
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
 example_obj.order          = order
 example_obj.title       = 'Spinbutton using IMG elements for buttons'

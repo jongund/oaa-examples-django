@@ -2,21 +2,20 @@
 
 {% block breadcrumb %}
 <li><a href="{% url 'show_home' %}">Home</a></li>
-<li>Markup</li>
+<li>Properties</li>
 {% endblock %}
 
 
 {% block content %}
-<div id='markup'>
+<div id='properties'>
 
     {% for def in defs %}
 
-    {% if def.examples.count %}
-    <h2>{{def.title}}</h2>
+    {% if def.examples.count and "aria" in def.title %}
+    <h2>{{def.title|slice:"1:-1"}}</h2>
     <table class="table table-striped table-hover sortable">
         <thead>
             <tr>
-                <th>Number</th>
                 <th>Title</th>
                 <th>Features</th>
                 <th>Role</th>
@@ -26,8 +25,7 @@
         <tbody>
             {% for example in def.examples.all %}
             <tr>
-                <td>{{ forloop.counter }} {# starting index 1 #}</td>
-                <td><a href="{% url 'show_markup_example' example.permanent_slug %}">{{example.title_html|safe}}</a></td>
+                <td><a href="{% url 'show_properties_example' example.permanent_slug %}">{{example.title_html|safe}}</a></td>
                 <td>{{example.a11y_features_html|safe}}</td>
                 <td>
                     <ul>

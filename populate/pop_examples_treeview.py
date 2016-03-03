@@ -21,6 +21,7 @@ m7 = ElementDefinition.objects.get(spec=spec_aria10, attribute='aria-owns')
 # =============================
 
 example_obj             = example_object()
+example_obj.example_id = 41
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
 example_obj.order          = order
 example_obj.title       = 'Treeview'
@@ -845,6 +846,7 @@ example1 = create_example(example_obj)
 order += 1
 
 example_obj             = example_object()
+example_obj.example_id = 42
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
 example_obj.order          = order
 example_obj.title       = 'Treeview: Using aria-owns'
@@ -1693,6 +1695,7 @@ example2 = create_example(example_obj)
 order += 1
 
 example_obj             = example_object()
+example_obj.example_id = 43
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
 example_obj.order          = order
 example_obj.title       = 'Treeview: ARIA CSS Selectors'

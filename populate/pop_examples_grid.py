@@ -30,6 +30,7 @@ m16 = ElementDefinition.objects.get(spec=spec_aria10, attribute='aria-sort')
 # =============================
 
 example_obj             = example_object()
+example_obj.example_id = 18
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
 example_obj.order       = order
 example_obj.title       = 'Grid: Reimbursement Form'
@@ -1741,6 +1742,7 @@ order += 1
 example_obj             = example_object()
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
 example_obj.order       = order
+example_obj.example_id = 19
 example_obj.title       = 'Grid: Email Application'
 example_obj.permanent_slug = 'grid2'
 

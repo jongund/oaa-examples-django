@@ -20,7 +20,7 @@
             {% for example in examples %}
             <tr>
                 <td>{{ forloop.counter }} {# starting index 1 #}</td>
-                <td><a href="{% url 'show_markup_example' example.permanent_slug %}">{{example.title_html|safe}}</a></td>
+                <td><a href="{% url 'show_home_example' example.example_id %}">{{example.title_html|safe}}</a></td>
                 <td>{{example.a11y_features_html|safe}}</td>
                 <td>
                     <ul>

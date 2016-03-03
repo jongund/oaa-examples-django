@@ -8,23 +8,43 @@ from django.contrib.auth.decorators import login_required
 
 from markup.models import ElementDefinition
 from examples.models import Example
-  
-def markup(request):
+
+def role(request):
     defs = ElementDefinition.objects.all()
    
-    return render_to_response('markup.html',{
-        'website'  : 'Markup',
-        'title'    : 'Markup',
-        'main'     : 'markup',
+    return render_to_response('role.html',{
+        'website'  : 'Role',
+        'title'    : 'Role',
+        'main'     : 'role',
         'defs'    : defs
       }, context_instance=RequestContext(request))
 
-def show_example(request, permanent_slug):
+def properties(request):
+    defs = ElementDefinition.objects.all()
+   
+    return render_to_response('properties.html',{
+        'website'  : 'Properties',
+        'title'    : 'Properties',
+        'main'     : 'properties',
+        'defs'    : defs
+      }, context_instance=RequestContext(request))
+
+def show_role_example(request, permanent_slug):
     example = Example.objects.get(permanent_slug=permanent_slug)
     
-    return render_to_response('example_markup.html',{
+    return render_to_response('example_role.html',{
         'website'  : example.title_text,
         'title'    : example.title_text,
-        'main'     : 'markup_example',
+        'main'     : 'role',
+        'example'  : example,
+        }, context_instance=RequestContext(request))
+
+def show_properties_example(request, permanent_slug):
+    example = Example.objects.get(permanent_slug=permanent_slug)
+    
+    return render_to_response('example_properties.html',{
+        'website'  : example.title_text,
+        'title'    : example.title_text,
+        'main'     : 'properties',
         'example'  : example,
         }, context_instance=RequestContext(request))

@@ -33,6 +33,7 @@ from django.contrib.auth.models import User
 user = User.objects.all()[0]
 
 class example_object:
+    example_id      = 0
     order           = 0
     rule_category = ""
     permanent_slug  = ""
@@ -51,6 +52,8 @@ def create_example(example_info):
     try:
         example = Example.objects.get(title=example_info.title)
         print( '  Updating Example ' + str(example.example_id) + ': ' + example.title )
+        
+        example.example_id           = example_info.example_id
         example.order           = example_info.order
         example.rule_category   = example_info.rule_category
         example.permanent_slug  = example_info.permanent_slug
@@ -69,6 +72,7 @@ def create_example(example_info):
         print('  Creating Example ' + example_info.title )
 
         example = Example( permanent_slug  = example_info.permanent_slug,
+                         example_id           = example_info.example_id,
                          order           = example_info.order,
                          rule_category   = example_info.rule_category,
                          title           = example_info.title, 

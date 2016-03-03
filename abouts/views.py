@@ -31,12 +31,12 @@ def home(request):
       'examples'      : examples,
    },context_instance=RequestContext(request))
 
-def show_example(request, permanent_slug):
-    example = Example.objects.get(permanent_slug=permanent_slug)
+def show_example(request, example_id):
+    example = Example.objects.get(example_id=example_id)
     
     return render_to_response('example_home.html',{
         'website'  : example.title_text,
         'title'    : example.title_text,
-        'main'     : 'rule_categories_example',
+        'main'     : 'home',
         'example'  : example,
         }, context_instance=RequestContext(request))

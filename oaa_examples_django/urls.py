@@ -21,7 +21,7 @@ urlpatterns = [
     
     # Home
     url(r'^$', 'abouts.views.home', name='show_home'),
-    url(r'^examples/(?P<permanent_slug>[\w-]+)/$', 'abouts.views.show_example',        name='show_home_example'),
+    url(r'^example/(?P<example_id>[\w-]+)/$', 'abouts.views.show_example',        name='show_home_example'),
 
     # Rule Categories
     #url(r'^rc/$', 'ruleCategories.views.rule_categories', name='show_rule_categories'),
@@ -38,7 +38,9 @@ urlpatterns = [
     url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
     
     # Markup
-    url(r'^markup/$', 'markup.views.markup', name='show_markup'),
-    url(r'^markup/(?P<permanent_slug>[\w-]+)/$', 'markup.views.show_example',        name='show_markup_example'),
+    url(r'^role/$', 'markup.views.role', name='show_role'),
+    url(r'^properties/$', 'markup.views.properties', name='show_properties'),
+    url(r'^exampler/(?P<permanent_slug>[\w-]+)/$', 'markup.views.show_role_example',        name='show_role_example'),
+    url(r'^examplep/(?P<permanent_slug>[\w-]+)/$', 'markup.views.show_properties_example',        name='show_properties_example'),
 
 ]

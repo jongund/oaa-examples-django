@@ -17,6 +17,8 @@ m6 = ElementDefinition.objects.get(spec=spec_aria10, attribute='role', value='gr
 # =============================
 
 example_obj = example_object()
+example_obj.example_id = 5
+
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
 example_obj.order = order
 example_obj.title = 'Checkbox using IMG elements for visual state'
@@ -550,6 +552,7 @@ example3 = create_example(example_obj)
 order += 1
 
 example_obj             = example_object()
+example_obj.example_id          = 6
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
 example_obj.order          = order
 example_obj.title       = 'Checkbox group using IMG elements for visual state'
@@ -1293,6 +1296,7 @@ example4 = create_example(example_obj)
 order += 1
 
 example_obj             = example_object()
+example_obj.example_id = 7
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
 example_obj.order          = order
 example_obj.title       = 'Checkbox group using background images for visual state'
@@ -2046,6 +2050,7 @@ example5 = create_example(example_obj)
 order += 1
 
 example_obj             = example_object()
+example_obj.example_id = 8
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
 example_obj.order          = order
 example_obj.title       = 'Checkbox group using ARIA CSS selectors for visual state'

@@ -21,12 +21,578 @@ m8 = ElementDefinition.objects.get(spec=spec_aria10, attribute='aria-selected')
 # Example 1
 # =============================
 
-
 example_obj             = example_object()
+example_obj.example_id = 23
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
-example_obj.order       = order
+example_obj.order          = order
 example_obj.title       = 'Live Region'
 example_obj.permanent_slug = 'live1'
+
+example_obj.a11y_features = """
+Simple example of a live region widget with two timers.
+"""
+example_obj.keyboard    = """
+"""
+
+example_obj.markup = [m1,m2,m3,m4,m5,m6,m7,m8]
+
+example_obj.html        = """
+<div class="controls">
+   <h2>Live Region 1: Simple Counter</h2>
+   <p><label for="id_time1">Change Interval (seconds)</label>:
+      <select id="id_time1">
+         <option id="id_time1_opt1" selected>1</option>
+         <option id="id_time1_opt2">2</option>
+         <option id="id_time1_opt3">3</option>
+         <option id="id_time1_opt4">4</option>
+         <option id="id_time1_opt5">5</option>
+         <option id="id_time1_opt6">6</option>
+         <option id="id_time1_opt7">7</option>
+         <option id="id_time1_opt8">8</option>
+         <option id="id_time1_opt9">9</option>
+         <option id="id_time1_opt10">10</option>
+      </select>
+   </p>
+
+   <p><label for="id_politeness1">Live Property Value</label>:
+      <select id="id_politeness1">
+         <option id="id_polite1_opt1">off</option>
+         <option id="id_polite1_opt2">polite</option>
+         <option id="id_polite1_opt3" selected>assertive</option>
+         <option id="id_polite1_opt4">rude</option>
+      </select>
+   </p>
+
+   <p><label for="id_atomic1">Atomic Property Value</label>:
+         <select id="id_atomic1">
+            <option id="id_atomic1_opt1" selected>true</option>
+            <option id="id_atomic1_opt2">false</option>
+          </select>
+   </p>
+
+   <p><label for="id_relevant1">Relevant Property Value</label>:
+         <select id="id_relevant1" >
+            <option id="id_relevant1_opt1">additions</option>
+            <option id="id_relevant1_opt2">removals</option>
+            <option id="id_relevant1_opt3">text</option>
+            <option id="id_relevant1_opt4" selected>all</option>
+          </select>
+   </p>
+</div>
+<div class="example">
+   <div id="id_region1Container">
+      <label for="liveregion1">Changing value</label>:
+      <div id="id_liveregion1">XXX
+      </div>
+   </div>
+</div>
+<div class="controls">
+   <h2>Live Region 2: Text Log</h2>
+   <p><label for="id_time2">Change Interval (in seconds)</label>:
+      <select id="id_time2">
+         <option id="id_time2_opt1">1</option>
+         <option id="id_time2_opt2">2</option>
+         <option id="id_time2_opt3">3</option>
+         <option id="id_time2_opt4">4</option>
+         <option id="id_time2_opt5" selected>5</option>
+         <option id="id_time2_opt6">6</option>
+         <option id="id_time2_opt7">7</option>
+         <option id="id_time2_opt8">8</option>
+         <option id="id_time2_opt9">9</option>
+         <option id="id_time2_opt10">10</option>
+      </select>
+   </p>
+
+   <p><label for="id_politeness2">Live Property Value</label>:
+      <select id="id_politeness2">
+         <option id="id_polite2_opt1">off</option>
+         <option id="id_polite2_opt2"selected>polite</option>
+         <option id="id_polite2_opt3">assertive</option>
+         <option id="id_polite2_opt4">rude</option>
+      </select>
+   </p>
+
+   <p><label id="id_atomic2Label" for="atomic2">Atomic Property Value</label>:
+         <select id="id_atomic2" aria-labelledby="id_atomic2Label">
+            <option id="id_atomic2_opt1" aria-selected="false">true</option>
+            <option id="id_atomic2_opt2" aria-selected="true" selected>false</option>
+          </select>
+   </p>
+
+   <p><label id="id_relevant2Label" for="relevant2">Relevant Property Value</label>:
+         <select id="id_relevant2" aria-labelledby="id_relevant2Label" aria-activedescendant="id_relevant2_opt1">
+            <option id="id_relevant2_opt1" role="option" aria-selected="true" selected>additions</option>
+            <option id="id_relevant2_opt2" role="option" aria-selected="false">removals</option>
+            <option id="id_relevant2_opt3" role="option" aria-selected="false">text</option>
+            <option id="id_relevant2_opt4" role="option" aria-selected="false">all</option>
+          </select>
+   </p>
+</div>
+
+<div class="example">
+   <label for="id_liveregion2">Log Text</label>
+
+   <div id="id_liveregion2">
+   </div>
+</div> 
+"""
+
+example_obj.script = """
+var OAA_EXAMPLES = OAA_EXAMPLES ||{};
+/**
+* @method liveRegion
+*
+* @memberOf OAA_EXAMPLES
+*
+* @desc a constructor to define an ARIA live region widget. The widget binds to a div
+* on the page and accepts a callback function that is triggered at a specified interval.
+*
+* By default, the live region's alert level is polite, it's updates are non-atomic, additions are relevant,
+* and it uses the general channel. These default values may be overridden by either specifying different
+* values in the html markup or by calling the widget's corresponding update functions.
+*
+* @param {string} id - the html id of the div to bind to.
+*
+* @param (func callback) func is the callback function to execute at the specified interval
+*
+* @param (interval integer) interval is the initial update interval
+*
+* @return N/A
+*/
+
+/**
+* @constructor liveRegion
+*
+* @memberOf OAA_EXAMPLES
+*
+* @desc Define the object properties
+*
+* @property {object} $id - the jquery object of the live region
+*
+* @property {object} func - the callback to execute after each interval
+*
+* @property {integer} interval - the interval to use for the timer
+*
+* @property {object} timer - the interval timer object
+*/
+
+OAA_EXAMPLES.liveRegion = function(id, func, interval) {
+
+  // define widget properties
+
+  this.$id = $('#' + id); 
+
+  this.func = func; 
+  this.interval = interval;
+  this.timer = null;
+
+  // set the initial live region aria attributes. Check if the user
+  // has specified values in the html markup. If so, use those
+  // values.
+
+  var tmp = this.$id.attr('aria-live');
+
+  if (tmp) {
+    this.politeness = tmp;
+  }
+  else {
+    this.politeness = 'polite';
+  }
+
+  tmp = this.$id.attr('aria-atomic');
+  if (tmp) {
+    this.atomic = tmp;
+  }
+  else {
+    this.atomic = 'false';
+  }
+
+  tmp = this.$id.attr('aria-relevant');
+  if (tmp) {
+    this.relevant = tmp;
+  }
+  else {
+    this.relevant = 'additions';
+  }
+
+  this.busy = false; // set to true while the region is updating
+
+  // create the update timer
+  this.createTimer();
+
+} // end liveRegion constructor
+
+/**
+* @method createTimer
+*
+* @memberOf OAA_EXAMPLES
+* 
+* @desc a member function to create an interval timer for
+* the live region widget.
+*
+* @return {N/A}
+*/
+
+OAA_EXAMPLES.liveRegion.prototype.createTimer = function() {
+
+  if (this.timer != null) {
+    // destroy the existing timer
+    this.destroyTimer();
+  }
+
+  this.timer = setInterval(this.func, this.interval);
+
+} // end createTimer()
+
+/**
+* @method destroyTimer
+*
+* @memberOf OAA_EXAMPLES
+*
+* @desc a member function to remove the interval timer for
+* the live region widget.
+*
+* @return {N/A}
+*/
+
+OAA_EXAMPLES.liveRegion.prototype.destroyTimer = function() {
+
+  if (this.timer != null) {
+    clearInterval(this.timer);    
+    this.timer = null;
+  }
+
+} // end createTimer()
+
+/**
+* @method setInterval
+*
+* @memberOf OAA_EXAMPLES
+*
+* @desc a member function to change the update interval
+* of the live region. This function stores the new interval, clears the current
+* interval timer and creates new one with the specified interval.
+*
+* @param {integer} interval - the new interval, in minutes, to set
+*
+* @return {N/A}
+*/
+
+OAA_EXAMPLES.liveRegion.prototype.setInterval = function(interval) {
+  this.interval = interval;
+
+  this.createTimer();
+
+} // end setInterval()
+
+/**
+* @method setPoliteness
+*
+* @memberOf OAA_EXAMPLES
+*
+* @desc a member function to set the aria-polite attribute of
+* the live region.
+*
+* @param {string} val - one of three possible states: 'off', 'polite', 'assertive';
+*
+* @return {N/A}
+*/
+
+OAA_EXAMPLES.liveRegion.prototype.setPoliteness = function(val) {
+
+  this.$id.attr('aria-live', val);
+} // end setPoliteness()
+
+/**
+* @method setAtomic
+*
+* @memberOf OAA_EXAMPLES
+*
+* @desc a member function to set the aria-atomic attribute of
+* the live region.
+*
+* @param {boolean} val - true if live region updates should be atomic
+*
+* @return N/A
+*/
+
+OAA_EXAMPLES.liveRegion.prototype.setAtomic = function(val) {
+
+  this.$id.attr('aria-atomic', val);
+
+} // end setAtomic()
+
+/**
+* @method setRelevant
+*
+* @memberOf OAA_EXAMPLES
+*
+* @desc a member function to set the aria-relevant attribute of
+* the live region.
+*
+* @param {string} val may be 'additions', 'removals', or 'text'. It may also be a
+* space seperated combination of these.
+*
+* @return {N/A}
+*/
+
+OAA_EXAMPLES.liveRegion.prototype.setRelevant = function(val) {
+
+  this.$id.attr('aria-relevant', val);
+
+} // end setRelevant() 
+
+
+var g_msg1 = {
+  msgArray: new Array("0","1","2","3","4","5","6","7","8","9"),  
+  index: 0
+};
+
+var g_msg2 = {
+  msgArray: new Array(
+    "The birch canoe slid on the smooth planks.",
+    "Glue the sheet to the dark blue background.",
+    "It's easy to tell the depth of a well.",
+    "These days a chicken leg is a rare dish.",
+    "Rice is often served in round bowls.",
+    "The juice of lemons makes fine punch.",
+    "The box was thrown beside the parked truck.",
+    "The hogs were fed chopped corn and garbage.",
+    "Four hours of steady work faced us.",
+    "Large size in stockings is hard to sell."
+  ),  
+  index: 0
+};
+
+var g_msg1index = 0;
+var g_msg2index = 0;
+
+/**
+* @method ready
+*
+* @desc executed when page is opened. Initializes text arrays
+* and other variables required to perform later functions.
+*
+* @return {N/A}
+*/
+
+$(document).ready(function() {
+  var live1 = new OAA_EXAMPLES.liveRegion('liveregion1', function() {OAA_EXAMPLES.updateRegion('id_liveregion1', g_msg1, false);}, 1000);
+  var live2 = new OAA_EXAMPLES.liveRegion('liveregion2', function() {OAA_EXAMPLES.updateRegion('id_liveregion2', g_msg2, true);}, 5000);
+
+  //Bind event handlers for live1 controls
+
+  // bind a change event handler for the interval select
+  $('#id_time1').change(function(e) {
+
+    
+    // set the interval
+    live1.setInterval($(this).val()*1000);
+
+    e.stopPropagation();
+    return false;
+  });
+
+  // bind a change event handler for the politeness select
+  $('#id_politeness1').change(function(e) {
+
+    // set the politeness
+    live1.setPoliteness($(this).val());
+
+    e.stopPropagation();
+    return false;
+  });
+
+  // bind a change event handler for the atomic select
+  $('#id_atomic1').change(function(e) {
+
+    // set the politeness
+    live1.setAtomic($(this).val());
+
+    e.stopPropagation();
+    return false;
+  });
+
+  // bind a change event handler for the update relevance select
+  $('#id_relevant1').change(function(e) {
+
+    // set the update revelance setting
+    live1.setRelevant($(this).val());
+
+    e.stopPropagation();
+    return false;
+  });
+
+  //Bind event handlers for live2 controls
+  
+  $('#id_time2').change(function(e) {
+
+    // set the interval
+    live2.setInterval($(this).val()*1000);
+
+    e.stopPropagation();
+    return false;
+  });
+
+  // bind a change event handler for the politeness select
+  $('#id_politeness2').change(function(e) {
+
+    // set the politeness
+    live2.setPoliteness($(this).val());
+
+    e.stopPropagation();
+    return false;
+  });
+
+  // bind a change event handler for the atomic select
+  $('#id_atomic2').change(function(e) {
+
+    // set the politeness
+    live2.setAtomic($(this).val());
+
+    e.stopPropagation();
+    return false;
+  });
+
+  // bind a change event handler for the update relevance select
+  $('#id_relevant2').change(function(e) {
+
+    // set the update revelance setting
+    live2.setRelevant($(this).val());
+
+    e.stopPropagation();
+    return false;
+  });
+
+}); // end ready()
+
+/**
+* @method updateRegion()
+*
+* @memberOf OAA_EXAMPLES
+*
+* @desc called by a liveRegion timer to updates the live region
+* with new content based on the passed messageArray.
+*
+* @param {object} LiveRegion - the liveRegion widget object
+*
+* @param {array} msgArray - an array of messages to use for the update
+*
+* @param {boolean} append - true if messages should be appended, false if message should
+* replace live region content
+*
+* @return {N/A}
+*/
+
+OAA_EXAMPLES.updateRegion = function(region, msgObj, append) {
+
+  var $regionID = $('#' + region);
+  var msg = '';
+  
+  if (msgObj.index == msgObj.msgArray.length) {
+    // We've reached the end of the array, reset the index.
+    msgObj.index = 0;
+
+    // clear the region
+    $regionID.empty();
+  }
+
+  if (append == false) {
+
+    msg = msgObj.msgArray[msgObj.index];
+
+    // messages should replace live region contents.
+    // Empty the live region
+    $regionID.empty();
+  }
+  else {
+    msg = msgObj.msgArray[msgObj.index] + '<br/>';
+  }
+
+  // append the new message to the live region
+  $regionID.append(msg);
+
+  if (append == true) {
+    $regionID.scrollTop($regionID.attr('scrollHeight'));
+  }
+
+  // increment the message index
+  msgObj.index++;
+ 
+} 
+
+"""
+example_obj.style       = """
+div#application {
+  height: 30em;
+}
+div.controls {
+  margin-left: 10px;
+  padding: 5px 10px;
+  width: 21em;
+  float: left;
+  clear: both;
+  border-bottom: 1px solid #008;
+}
+button,
+select {
+  float: right;
+}
+h2 {
+  clear: both;
+}
+div.example {
+  margin-top: 50px;
+  margin-left: 30px;
+  width: 22em;
+  float: left;
+}
+div#id_region1Container {
+  margin-left: 4em;
+  padding: 10px;
+  width: 11em;
+  height: 1.6em;
+  float: left;
+}
+div#id_region1Container label {
+  padding-top: 10px;
+  font-weight: bold;
+}
+div#id_liveregion1 {
+  margin: 0;
+  padding: 2px 5px;
+  float: right;
+  width: 2em;
+  text-align: right;
+  border: 1px solid black;
+}
+label#region2Label {
+  font-weight: bold;
+  font-size: 1.2em;
+}
+div#id_liveregion2 {
+  padding: 2px 5px;
+  width: 22em;
+  border: 1px solid black;
+  height: 9em;
+  overflow: auto;
+}
+"""
+
+example1 = create_example(example_obj)
+
+# =============================
+# Example 2
+# =============================
+
+order += 1
+
+example_obj             = example_object()
+example_obj.example_id = 24
+example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
+example_obj.order       = order
+example_obj.title       = 'Live Region: RSS Feed'
+example_obj.permanent_slug = 'live2'
 
 example_obj.a11y_features = """
 Simple example of a live region widget with two timers.
@@ -645,573 +1211,7 @@ div#liveregion2 {
 }
 """
 
-example1 = create_example(example_obj)
-
-# =============================
-# Example 2
-# =============================
-
-order += 1
-
-example_obj             = example_object()
-example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
-example_obj.order          = order
-example_obj.title       = 'Live Region 2'
-example_obj.permanent_slug = 'live2'
-
-example_obj.a11y_features = """
-Simple example of a live region widget with two timers.
-"""
-example_obj.keyboard    = """
-"""
-
-example_obj.markup = [m1,m2,m3,m4,m5,m6,m7,m8]
-
-example_obj.html        = """
-<div class="controls">
-   <h2>Live Region 1: Simple Counter</h2>
-   <p><label for="id_time1">Change Interval (seconds)</label>:
-      <select id="id_time1">
-         <option id="id_time1_opt1" selected>1</option>
-         <option id="id_time1_opt2">2</option>
-         <option id="id_time1_opt3">3</option>
-         <option id="id_time1_opt4">4</option>
-         <option id="id_time1_opt5">5</option>
-         <option id="id_time1_opt6">6</option>
-         <option id="id_time1_opt7">7</option>
-         <option id="id_time1_opt8">8</option>
-         <option id="id_time1_opt9">9</option>
-         <option id="id_time1_opt10">10</option>
-      </select>
-   </p>
-
-   <p><label for="id_politeness1">Live Property Value</label>:
-      <select id="id_politeness1">
-         <option id="id_polite1_opt1">off</option>
-         <option id="id_polite1_opt2">polite</option>
-         <option id="id_polite1_opt3" selected>assertive</option>
-         <option id="id_polite1_opt4">rude</option>
-      </select>
-   </p>
-
-   <p><label for="id_atomic1">Atomic Property Value</label>:
-         <select id="id_atomic1">
-            <option id="id_atomic1_opt1" selected>true</option>
-            <option id="id_atomic1_opt2">false</option>
-          </select>
-   </p>
-
-   <p><label for="id_relevant1">Relevant Property Value</label>:
-         <select id="id_relevant1" >
-            <option id="id_relevant1_opt1">additions</option>
-            <option id="id_relevant1_opt2">removals</option>
-            <option id="id_relevant1_opt3">text</option>
-            <option id="id_relevant1_opt4" selected>all</option>
-          </select>
-   </p>
-</div>
-<div class="example">
-   <div id="id_region1Container">
-      <label for="liveregion1">Changing value</label>:
-      <div id="id_liveregion1">XXX
-      </div>
-   </div>
-</div>
-<div class="controls">
-   <h2>Live Region 2: Text Log</h2>
-   <p><label for="id_time2">Change Interval (in seconds)</label>:
-      <select id="id_time2">
-         <option id="id_time2_opt1">1</option>
-         <option id="id_time2_opt2">2</option>
-         <option id="id_time2_opt3">3</option>
-         <option id="id_time2_opt4">4</option>
-         <option id="id_time2_opt5" selected>5</option>
-         <option id="id_time2_opt6">6</option>
-         <option id="id_time2_opt7">7</option>
-         <option id="id_time2_opt8">8</option>
-         <option id="id_time2_opt9">9</option>
-         <option id="id_time2_opt10">10</option>
-      </select>
-   </p>
-
-   <p><label for="id_politeness2">Live Property Value</label>:
-      <select id="id_politeness2">
-         <option id="id_polite2_opt1">off</option>
-         <option id="id_polite2_opt2"selected>polite</option>
-         <option id="id_polite2_opt3">assertive</option>
-         <option id="id_polite2_opt4">rude</option>
-      </select>
-   </p>
-
-   <p><label id="id_atomic2Label" for="atomic2">Atomic Property Value</label>:
-         <select id="id_atomic2" aria-labelledby="id_atomic2Label">
-            <option id="id_atomic2_opt1" aria-selected="false">true</option>
-            <option id="id_atomic2_opt2" aria-selected="true" selected>false</option>
-          </select>
-   </p>
-
-   <p><label id="id_relevant2Label" for="relevant2">Relevant Property Value</label>:
-         <select id="id_relevant2" aria-labelledby="id_relevant2Label" aria-activedescendant="id_relevant2_opt1">
-            <option id="id_relevant2_opt1" role="option" aria-selected="true" selected>additions</option>
-            <option id="id_relevant2_opt2" role="option" aria-selected="false">removals</option>
-            <option id="id_relevant2_opt3" role="option" aria-selected="false">text</option>
-            <option id="id_relevant2_opt4" role="option" aria-selected="false">all</option>
-          </select>
-   </p>
-</div>
-
-<div class="example">
-   <label for="id_liveregion2">Log Text</label>
-
-   <div id="id_liveregion2">
-   </div>
-</div> 
-"""
-
-example_obj.script = """
-var OAA_EXAMPLES = OAA_EXAMPLES ||{};
-/**
-* @method liveRegion
-*
-* @memberOf OAA_EXAMPLES
-*
-* @desc a constructor to define an ARIA live region widget. The widget binds to a div
-* on the page and accepts a callback function that is triggered at a specified interval.
-*
-* By default, the live region's alert level is polite, it's updates are non-atomic, additions are relevant,
-* and it uses the general channel. These default values may be overridden by either specifying different
-* values in the html markup or by calling the widget's corresponding update functions.
-*
-* @param {string} id - the html id of the div to bind to.
-*
-* @param (func callback) func is the callback function to execute at the specified interval
-*
-* @param (interval integer) interval is the initial update interval
-*
-* @return N/A
-*/
-
-/**
-* @constructor liveRegion
-*
-* @memberOf OAA_EXAMPLES
-*
-* @desc Define the object properties
-*
-* @property {object} $id - the jquery object of the live region
-*
-* @property {object} func - the callback to execute after each interval
-*
-* @property {integer} interval - the interval to use for the timer
-*
-* @property {object} timer - the interval timer object
-*/
-
-OAA_EXAMPLES.liveRegion = function(id, func, interval) {
-
-  // define widget properties
-
-  this.$id = $('#' + id); 
-
-  this.func = func; 
-  this.interval = interval;
-  this.timer = null;
-
-  // set the initial live region aria attributes. Check if the user
-  // has specified values in the html markup. If so, use those
-  // values.
-
-  var tmp = this.$id.attr('aria-live');
-
-  if (tmp) {
-    this.politeness = tmp;
-  }
-  else {
-    this.politeness = 'polite';
-  }
-
-  tmp = this.$id.attr('aria-atomic');
-  if (tmp) {
-    this.atomic = tmp;
-  }
-  else {
-    this.atomic = 'false';
-  }
-
-  tmp = this.$id.attr('aria-relevant');
-  if (tmp) {
-    this.relevant = tmp;
-  }
-  else {
-    this.relevant = 'additions';
-  }
-
-  this.busy = false; // set to true while the region is updating
-
-  // create the update timer
-  this.createTimer();
-
-} // end liveRegion constructor
-
-/**
-* @method createTimer
-*
-* @memberOf OAA_EXAMPLES
-* 
-* @desc a member function to create an interval timer for
-* the live region widget.
-*
-* @return {N/A}
-*/
-
-OAA_EXAMPLES.liveRegion.prototype.createTimer = function() {
-
-  if (this.timer != null) {
-    // destroy the existing timer
-    this.destroyTimer();
-  }
-
-  this.timer = setInterval(this.func, this.interval);
-
-} // end createTimer()
-
-/**
-* @method destroyTimer
-*
-* @memberOf OAA_EXAMPLES
-*
-* @desc a member function to remove the interval timer for
-* the live region widget.
-*
-* @return {N/A}
-*/
-
-OAA_EXAMPLES.liveRegion.prototype.destroyTimer = function() {
-
-  if (this.timer != null) {
-    clearInterval(this.timer);    
-    this.timer = null;
-  }
-
-} // end createTimer()
-
-/**
-* @method setInterval
-*
-* @memberOf OAA_EXAMPLES
-*
-* @desc a member function to change the update interval
-* of the live region. This function stores the new interval, clears the current
-* interval timer and creates new one with the specified interval.
-*
-* @param {integer} interval - the new interval, in minutes, to set
-*
-* @return {N/A}
-*/
-
-OAA_EXAMPLES.liveRegion.prototype.setInterval = function(interval) {
-  this.interval = interval;
-
-  this.createTimer();
-
-} // end setInterval()
-
-/**
-* @method setPoliteness
-*
-* @memberOf OAA_EXAMPLES
-*
-* @desc a member function to set the aria-polite attribute of
-* the live region.
-*
-* @param {string} val - one of three possible states: 'off', 'polite', 'assertive';
-*
-* @return {N/A}
-*/
-
-OAA_EXAMPLES.liveRegion.prototype.setPoliteness = function(val) {
-
-  this.$id.attr('aria-live', val);
-} // end setPoliteness()
-
-/**
-* @method setAtomic
-*
-* @memberOf OAA_EXAMPLES
-*
-* @desc a member function to set the aria-atomic attribute of
-* the live region.
-*
-* @param {boolean} val - true if live region updates should be atomic
-*
-* @return N/A
-*/
-
-OAA_EXAMPLES.liveRegion.prototype.setAtomic = function(val) {
-
-  this.$id.attr('aria-atomic', val);
-
-} // end setAtomic()
-
-/**
-* @method setRelevant
-*
-* @memberOf OAA_EXAMPLES
-*
-* @desc a member function to set the aria-relevant attribute of
-* the live region.
-*
-* @param {string} val may be 'additions', 'removals', or 'text'. It may also be a
-* space seperated combination of these.
-*
-* @return {N/A}
-*/
-
-OAA_EXAMPLES.liveRegion.prototype.setRelevant = function(val) {
-
-  this.$id.attr('aria-relevant', val);
-
-} // end setRelevant() 
-
-
-var g_msg1 = {
-  msgArray: new Array("0","1","2","3","4","5","6","7","8","9"),  
-  index: 0
-};
-
-var g_msg2 = {
-  msgArray: new Array(
-    "The birch canoe slid on the smooth planks.",
-    "Glue the sheet to the dark blue background.",
-    "It's easy to tell the depth of a well.",
-    "These days a chicken leg is a rare dish.",
-    "Rice is often served in round bowls.",
-    "The juice of lemons makes fine punch.",
-    "The box was thrown beside the parked truck.",
-    "The hogs were fed chopped corn and garbage.",
-    "Four hours of steady work faced us.",
-    "Large size in stockings is hard to sell."
-  ),  
-  index: 0
-};
-
-var g_msg1index = 0;
-var g_msg2index = 0;
-
-/**
-* @method ready
-*
-* @desc executed when page is opened. Initializes text arrays
-* and other variables required to perform later functions.
-*
-* @return {N/A}
-*/
-
-$(document).ready(function() {
-  var live1 = new OAA_EXAMPLES.liveRegion('liveregion1', function() {OAA_EXAMPLES.updateRegion('id_liveregion1', g_msg1, false);}, 1000);
-  var live2 = new OAA_EXAMPLES.liveRegion('liveregion2', function() {OAA_EXAMPLES.updateRegion('id_liveregion2', g_msg2, true);}, 5000);
-
-  //Bind event handlers for live1 controls
-
-  // bind a change event handler for the interval select
-  $('#id_time1').change(function(e) {
-
-    
-    // set the interval
-    live1.setInterval($(this).val()*1000);
-
-    e.stopPropagation();
-    return false;
-  });
-
-  // bind a change event handler for the politeness select
-  $('#id_politeness1').change(function(e) {
-
-    // set the politeness
-    live1.setPoliteness($(this).val());
-
-    e.stopPropagation();
-    return false;
-  });
-
-  // bind a change event handler for the atomic select
-  $('#id_atomic1').change(function(e) {
-
-    // set the politeness
-    live1.setAtomic($(this).val());
-
-    e.stopPropagation();
-    return false;
-  });
-
-  // bind a change event handler for the update relevance select
-  $('#id_relevant1').change(function(e) {
-
-    // set the update revelance setting
-    live1.setRelevant($(this).val());
-
-    e.stopPropagation();
-    return false;
-  });
-
-  //Bind event handlers for live2 controls
-  
-  $('#id_time2').change(function(e) {
-
-    // set the interval
-    live2.setInterval($(this).val()*1000);
-
-    e.stopPropagation();
-    return false;
-  });
-
-  // bind a change event handler for the politeness select
-  $('#id_politeness2').change(function(e) {
-
-    // set the politeness
-    live2.setPoliteness($(this).val());
-
-    e.stopPropagation();
-    return false;
-  });
-
-  // bind a change event handler for the atomic select
-  $('#id_atomic2').change(function(e) {
-
-    // set the politeness
-    live2.setAtomic($(this).val());
-
-    e.stopPropagation();
-    return false;
-  });
-
-  // bind a change event handler for the update relevance select
-  $('#id_relevant2').change(function(e) {
-
-    // set the update revelance setting
-    live2.setRelevant($(this).val());
-
-    e.stopPropagation();
-    return false;
-  });
-
-}); // end ready()
-
-/**
-* @method updateRegion()
-*
-* @memberOf OAA_EXAMPLES
-*
-* @desc called by a liveRegion timer to updates the live region
-* with new content based on the passed messageArray.
-*
-* @param {object} LiveRegion - the liveRegion widget object
-*
-* @param {array} msgArray - an array of messages to use for the update
-*
-* @param {boolean} append - true if messages should be appended, false if message should
-* replace live region content
-*
-* @return {N/A}
-*/
-
-OAA_EXAMPLES.updateRegion = function(region, msgObj, append) {
-
-  var $regionID = $('#' + region);
-  var msg = '';
-  
-  if (msgObj.index == msgObj.msgArray.length) {
-    // We've reached the end of the array, reset the index.
-    msgObj.index = 0;
-
-    // clear the region
-    $regionID.empty();
-  }
-
-  if (append == false) {
-
-    msg = msgObj.msgArray[msgObj.index];
-
-    // messages should replace live region contents.
-    // Empty the live region
-    $regionID.empty();
-  }
-  else {
-    msg = msgObj.msgArray[msgObj.index] + '<br/>';
-  }
-
-  // append the new message to the live region
-  $regionID.append(msg);
-
-  if (append == true) {
-    $regionID.scrollTop($regionID.attr('scrollHeight'));
-  }
-
-  // increment the message index
-  msgObj.index++;
- 
-} 
-
-"""
-example_obj.style       = """
-div#application {
-  height: 30em;
-}
-div.controls {
-  margin-left: 10px;
-  padding: 5px 10px;
-  width: 21em;
-  float: left;
-  clear: both;
-  border-bottom: 1px solid #008;
-}
-button,
-select {
-  float: right;
-}
-h2 {
-  clear: both;
-}
-div.example {
-  margin-top: 50px;
-  margin-left: 30px;
-  width: 22em;
-  float: left;
-}
-div#id_region1Container {
-  margin-left: 4em;
-  padding: 10px;
-  width: 11em;
-  height: 1.6em;
-  float: left;
-}
-div#id_region1Container label {
-  padding-top: 10px;
-  font-weight: bold;
-}
-div#id_liveregion1 {
-  margin: 0;
-  padding: 2px 5px;
-  float: right;
-  width: 2em;
-  text-align: right;
-  border: 1px solid black;
-}
-label#region2Label {
-  font-weight: bold;
-  font-size: 1.2em;
-}
-div#id_liveregion2 {
-  padding: 2px 5px;
-  width: 22em;
-  border: 1px solid black;
-  height: 9em;
-  overflow: auto;
-}
-"""
-
 example2 = create_example(example_obj)
-
 
 # =============================
 # Example 3

@@ -80,7 +80,7 @@ class Example(models.Model):
   order            = models.IntegerField(default=0)
   
   class Meta:
-    ordering = ['title',]
+    ordering = ['example_id','title']
     verbose_name        ="Example"
     verbose_name_plural ="Examples"
     

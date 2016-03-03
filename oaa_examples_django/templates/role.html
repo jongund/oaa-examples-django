@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block breadcrumb %}
+<li><a href="{% url 'show_home' %}">Home</a></li>
+<li>Role</li>
+{% endblock %}
+
+
+{% block content %}
+<div id='role'>
+
+    {% for def in defs %}
+
+    {% if def.examples.count and "role" in def.title %}
+    <h2>{{def.title|slice:"6:-1"}}</h2>
+    <table class="table table-striped table-hover sortable">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Features</th>
+                <th>Role</th>
+                <th>Properties</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for example in def.examples.all %}
+            <tr>
+                <td><a href="{% url 'show_role_example' example.permanent_slug %}">{{example.title_html|safe}}</a></td>
+                <td>{{example.a11y_features_html|safe}}</td>
+                <td>
+                    <ul>
+                        {% for m in example.markup.all %}
+                        {% if "role" in m.title %}
+                        <li>{{m.title|slice:"6:-1"}}</li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </td>
+                <td>
+                    <ul>
+                        {% for m in example.markup.all %}
+                        {% if "role" not in m.title %}
+                        <li>{{m.title|slice:"1:-1"}}</li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    {% endfor %}
+
+</div>
+{% endblock %}
+
+
+
+{% block nav_options %}
+{% endblock %}
