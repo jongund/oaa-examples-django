@@ -22,7 +22,6 @@ from examples.models import Example
 from django.contrib.auth.models import User
 
 import datetime
-import textile
 
 from django.core.exceptions import ObjectDoesNotExist
 from markup.models          import LanguageSpec, ElementDefinition
