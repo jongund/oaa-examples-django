@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 import datetime
 from utilities import OAAMarkupToText, OAAMarkupToHTML
-import textile
+import markdown
 
 class Updated(models.Model):
   updated_date   = models.DateTimeField(auto_now=True, editable=False)
@@ -29,7 +29,7 @@ class About(Updated):
       self.title_html    = OAAMarkupToHTML(self.title)
       self.title_text    = OAAMarkupToText(self.title)
     if self.content: 
-      self.content_html  = textile.textile(self.content)
+      self.content_html  = markdown.markdown(self.content)
     self.updated_date  = datetime.datetime.now()
     super(About, self).save() # Call the "real" save() method.
     
