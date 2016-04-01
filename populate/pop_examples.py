@@ -27,10 +27,13 @@ from django.core.exceptions import ObjectDoesNotExist
 from markup.models          import LanguageSpec, ElementDefinition
 from examples.models        import Example
 
-from django.contrib.auth.models import User
-
-user = User.objects.all()[0]
-
+try:
+    user = User.objects.all()[0]
+except:
+    user = User(username="editor", email="jongund@illinois.edu", first_name="editor", last_name="primary", is_active=True, is_superuser=True, is_staff=True)
+    user.set_password("editor1234")
+    user.save()
+    
 class example_object:
     example_id      = 0
     order           = 0
