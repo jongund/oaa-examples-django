@@ -23,14 +23,24 @@ print("BASE_DIR: " + BASE_DIR)
 APP_DIR = root("")
 print("APP_DIR: " + APP_DIR)
 
+with open(join(BASE_DIR,"secrets.json")) as f:
+    secrets = json.loads(f.read())
+
+def get_secret(setting, secrets = secrets):
+    try:
+        return secrets[setting]
+    except KeyError:
+        error_msg = "Set the {0} environement variable".format(setting)
+        raise ImproperlyConfigured(error_msg)
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'x)%i7dem&c(2*jh-hjtjayy0_1#%_&gpens(0u(rv$h$n3s3wr'
+SECRET_KEY = get_secret('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = get_secret('DEBUG')
 
 DJANGO_ROOT = os.path.dirname(os.path.realpath(django.__file__))
 SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
@@ -39,7 +49,7 @@ LOGOUT_URL = '/logout/'
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
-STATIC_URL = '/static/'
+STATIC_URL = get_secret('STATIC_URL')
 print("STATIC_URL: " + STATIC_URL)
 STATIC_ROOT = join(BASE_DIR, 'static/')
 print("STATIC_ROOT: " + STATIC_ROOT)
@@ -49,6 +59,12 @@ STATICFILES_DIRS = (
 )
 print("STATICFILES_DIRS: " + str(STATICFILES_DIRS))
 
+
+SITE_NAME = get_secret('SITE_NAME')
+SITE_URL  = get_secret('SITE_URL')
+
+ALLOWED_HOSTS = get_secret('ALLOWED_HOSTS')
+
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -56,6 +72,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'examples',
     'markup',
     'ruleCategories',
@@ -97,17 +114,6 @@ WSGI_APPLICATION = 'oaa_examples_django.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-SECRET_FILE = join(BASE_DIR, 'secrets.json')
-
-with open(SECRET_FILE) as f:
-    secrets = json.loads(f.read())
-
-def get_secret(setting, secrets = secrets):
-    try:
-        return secrets[setting]
-    except KeyError:
-        error_msg = "Set the {0} environement variable".format(setting)
-        raise ImproperlyConfigured(error_msg)
 
 
 DATABASES = {
