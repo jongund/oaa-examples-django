@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 from abouts.models import About
 from examples.models import Example
 from breadCrumbs   import breadCrumbs
+from markup.models import ElementDefinition
 
   
 def home(request):
@@ -40,3 +41,13 @@ def show_example(request, example_id):
         'main'     : 'home',
         'example'  : example,
         }, context_instance=RequestContext(request))
+
+def base(request):
+    defs = ElementDefinition.objects.all()
+
+    return render_to_response('base.html',{
+      'website'         : about.title_text,
+      'title'         : about.title_text,
+      'main'          : 'base',
+      'defs'          : defs,
+   },context_instance=RequestContext(request))

@@ -40,8 +40,30 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li {% if main == 'home'     %} class="active" {% endif %}><a href="{% url 'show_home' %}">Home</a></li>
-                        <li {% if main == 'role'   %} class="active" {% endif %}><a href="{% url 'show_role' %}">Role</a></li>
-                        <li {% if main == 'properties'   %} class="active" {% endif %}><a href="{% url 'show_properties' %}">Properties</a></li>
+                        <li role="presentation" class="dropdown {% if main == 'role'   %} active {% endif %}" >
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                Role <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                {% for def in defs %}
+                                {% if def.examples.count and "role" in def.title %}
+                                <li><a href="/role/#role-{{def.title|slice:"6:-1"}}">{{def.title|slice:"6:-1"}}</a></li>
+                                {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        <li role="presentation" class="dropdown {% if main == 'properties'   %} active {% endif %}" >
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                Properties <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                {% for def in defs %}
+                                {% if def.examples.count and "aria" in def.title %}
+                                <li><a href="/properties/#properties-{{def.title|slice:"1:-1"}}">{{def.title|slice:"1:-1"}}</a></li>
+                                {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="/admin">Login</a></li>
@@ -51,10 +73,6 @@
         </nav>
         <div class="container">
             <div id="container">
-                <!--<div id="nav_options" role="navigation" aria-labelledby="id_nav_options_label">
-{% block nav_options %}
-{% endblock %}
-</div>-->
                 <div id="main" role="main">
                     <ol class="breadcrumb">
                         {% block breadcrumb %}
