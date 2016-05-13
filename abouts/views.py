@@ -16,7 +16,8 @@ from markup.models import ElementDefinition
 def home(request):
    about = About.objects.get(about_slug='home')
    examples = Example.objects.all()
-    
+   defs = ElementDefinition.objects.all()
+
    request.session['oaa_bread_crumb_1_title'] = 'Home'
    request.session['oaa_bread_crumb_1_url']   = reverse('show_home')
    request.session['oaa_bread_crumb_2_title'] = ''
@@ -30,6 +31,7 @@ def home(request):
       'about'         : about,
       'bread_crumbs'  : breadCrumbs(request),
       'examples'      : examples,
+      'defs'          : defs,
    },context_instance=RequestContext(request))
 
 def show_example(request, example_id):
