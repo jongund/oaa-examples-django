@@ -31,20 +31,24 @@ def properties(request):
 
 def show_role_example(request, permanent_slug):
     example = Example.objects.get(permanent_slug=permanent_slug)
-    
+    defs = ElementDefinition.objects.all()
+
     return render_to_response('example_role.html',{
         'website'  : example.title_text,
         'title'    : example.title_text,
         'main'     : 'role',
         'example'  : example,
+        'defs'     : defs,
         }, context_instance=RequestContext(request))
 
 def show_properties_example(request, permanent_slug):
     example = Example.objects.get(permanent_slug=permanent_slug)
-    
+    defs = ElementDefinition.objects.all()
+
     return render_to_response('example_properties.html',{
         'website'  : example.title_text,
         'title'    : example.title_text,
         'main'     : 'properties',
         'example'  : example,
+        'defs'     : defs,
         }, context_instance=RequestContext(request))

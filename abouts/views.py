@@ -36,12 +36,14 @@ def home(request):
 
 def show_example(request, example_id):
     example = Example.objects.get(example_id=example_id)
-    
+    defs = ElementDefinition.objects.all()
+
     return render_to_response('example_home.html',{
         'website'  : example.title_text,
         'title'    : example.title_text,
         'main'     : 'home',
         'example'  : example,
+        'defs'     : defs
         }, context_instance=RequestContext(request))
 
 def base(request):
