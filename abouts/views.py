@@ -34,6 +34,17 @@ def home(request):
       'defs'          : defs,
    },context_instance=RequestContext(request))
 
+def about(request):
+    examples = Example.objects.all()
+    defs = ElementDefinition.objects.all()
+
+    return render_to_response('about.html',{
+        'title'       : 'About ARIA Examples',
+        'main'        : 'about',
+        'examples'    : examples,
+        'defs'        : defs
+        }, context_instance=RequestContext(request))
+
 def show_example(request, example_id):
     example = Example.objects.get(example_id=example_id)
     defs = ElementDefinition.objects.all()

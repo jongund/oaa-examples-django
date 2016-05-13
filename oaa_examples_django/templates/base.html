@@ -64,9 +64,8 @@
                                 {% endfor %}
                             </ul>
                         </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/admin">Login</a></li>
+                        <li {% if main == 'about'     %} class="active" {% endif %}><a href="{% url 'show_about' %}">About</a></li>
+                        <li><a href="https://github.com/opena11y/oaa-examples-django/issues">Issues</a></li>
                     </ul>
                 </div>
             </div>
@@ -74,10 +73,12 @@
         <div class="container">
             <div id="container">
                 <div id="main" role="main">
+                    {% if main != 'about' %}
                     <ol class="breadcrumb">
                         {% block breadcrumb %}
                         {% endblock %}
                     </ol>
+                    {% endif %}
                     <h1>{{ title|safe }}</h1>
                     {% block content %}
                     {% endblock %}

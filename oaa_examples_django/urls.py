@@ -21,6 +21,8 @@ urlpatterns = [
     
     # Home
     url(r'^$', 'abouts.views.home', name='show_home'),
+    url(r'^about$', 'abouts.views.about', name='show_about'),
+
     url(r'^example/(?P<example_id>[\w-]+)/$', 'abouts.views.show_example',        name='show_home_example'),
 
     # Rule Categories

@@ -62,7 +62,7 @@ h2. Markup
  
 """
   
-create_about(-1, "home", "Welcome to the ARIA Examples", content)
+create_about(-1, "home", "ARIA Examples", content)
 
 content = """
 * The purpose of accessible web coding practices website is to document the design patterns and the HTML/CSS/ARIA coding practices that lead to web resources being accessible and usable by people with disabilities.
