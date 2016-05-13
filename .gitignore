@@ -1,1 +1,3 @@
 oaa_examples_django/secrets.json
+*.pyc
+*.*~
