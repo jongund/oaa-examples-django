@@ -10,11 +10,13 @@
 {% block bottom_styles %}
 
   <style type="text/css">
+      
     #example_html {
       margin-top: 1em;
       padding: 1em;
       background-color: #EEEEEE;
       border: black thin solid;
+      margin: 0 auto;
     }
     
     div.code {
@@ -34,8 +36,49 @@
       font-weight: normal;
       color: blue;
     }
-        
     
+    h2.example-start {
+      width: 25%;
+      height: 1.5em;
+      font-size: 150%;
+      text-align: center;
+      border: 1px solid black;
+      border-bottom: none;
+      background-color: #F9F9F9;
+      margin-bottom: 0;
+        
+      /* Do rounding (native in Firefox and Safari) */
+      -webkit-border-top-left-radius: 10px;
+      -moz-border-radius-topleft: 10px;
+      border-top-left-radius: 10px;
+
+      /* Do rounding (native in Firefox and Safari) */
+      -webkit-border-top-right-radius: 10px;
+      -moz-border-radius-topright: 10px;
+      border-top-right-radius: 10px;
+    }
+    
+    h2.example-end {
+      width: 25%;
+      height: 1.5em;
+      font-size: 150%;
+      text-align: center;
+      vertical-align:middle;
+      border: 1px solid black;
+      border-top: none;
+      background-color: #F9F9F9;
+      margin-top: 0;
+        
+      /* Do rounding (native in Firefox and Safari) */
+      -webkit-border-bottom-left-radius: 10px;
+      -moz-border-radius-bottomleft: 10px;
+      border-bottom-left-radius: 10px;
+
+      /* Do rounding (native in Firefox and Safari) */
+      -webkit-border-bottom-right-radius: 10px;
+      -moz-border-radius-bottomright: 10px;
+      border-bottom-right-radius: 10px;
+    }
   </style>
 
   {% if example.style %}
@@ -66,7 +109,7 @@
   </div>
   
   <div id="example_section">
-    <h2>Example Start</h2>
+    <h2 class="example-start">Example Start</h2>
     <div id="example_html" role="region" aria-label="Example">
     {{ example.html_code|safe }}
     </div>
@@ -83,10 +126,29 @@
     </script>
     {% endif %}
     
-    <h2>Example End</h2>
+    <h2 class="example-end">Example End</h2>
   </div>
-  
-  <h2>HMTL Source Code</h2>
+  <h2>Roles</h2>
+    <div>
+            <ul>
+                {% for m in example.markup.all %}
+                {% if "role" in m.title %}
+                <li>{{m.title|slice:"6:-1"}}</li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+    </div>
+  <h2>Properties</h2>
+    <div>
+            <ul>
+                {% for m in example.markup.all %}
+                {% if "role" not in m.title %}
+                <li>{{m.title|slice:"1:-1"}}</li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+    </div>
+  <h2>HTML Source Code</h2>
   <div class="code">
     {{ example.html_source|safe }}    
   </div>

@@ -8,11 +8,10 @@ order = 1
 
 spec_aria10 = LanguageSpec.objects.get(url_slug='aria10')
 
-m1 = ElementDefinition.objects.get(spec=spec_aria10, attribute='role', value='checkbox')
-m2 = ElementDefinition.objects.get(spec=spec_aria10, attribute='role', value='presentation')
-m3 = ElementDefinition.objects.get(spec=spec_aria10, attribute='aria-checked')
-m4 = ElementDefinition.objects.get(spec=spec_aria10, attribute='aria-describedby')
-m5 = ElementDefinition.objects.get(spec=spec_aria10, attribute='aria-hidden')
+m1 = ElementDefinition.objects.get(spec=spec_aria10, attribute='role', value='alert')
+m2 = ElementDefinition.objects.get(spec=spec_aria10, attribute='role', value='application')
+m3 = ElementDefinition.objects.get(spec=spec_aria10, attribute='role', value='alertdialog')
+m4 = ElementDefinition.objects.get(spec=spec_aria10, attribute='aria-labelledby')
 
 # =============================
 # Example 1
@@ -36,7 +35,7 @@ example_obj.keyboard    = """
 example_obj.aria_labelledby = True
 example_obj.html_label = True
 
-example_obj.markup = [m1,m2,m3,m4]
+example_obj.markup = [m1,m2,m4]
 
 example_obj.html        = """
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
@@ -549,7 +548,7 @@ example_obj.keyboard    = """
 example_obj.aria_labelledby = True
 example_obj.html_label = True
 
-example_obj.markup = [m1,m2,m3,m4,m5]
+example_obj.markup = [m2,m3,m4]
 
 example_obj.html        = """
 //reference to JQuery

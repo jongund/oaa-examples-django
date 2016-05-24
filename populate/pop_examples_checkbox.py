@@ -434,6 +434,7 @@ order +=  1
 example_obj = example_object()
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
 
+example_obj.example_id = 46
 example_obj.order          = order
 example_obj.title          = '@input[type=checkbox]@ - Labeling checkbox using @title@ attribute'
 example_obj.permanent_slug = 'checkbox2'

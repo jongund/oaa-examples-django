@@ -1221,6 +1221,7 @@ order +=1
 example_obj             = example_object()
 example_obj.rule_category = RuleCategory.objects.get(category_id='ID_CATEGORY_WIDGETS')
 example_obj.order          = order
+example_obj.example_id = 45
 example_obj.title       = 'Live Region 3'
 example_obj.permanent_slug = 'live3'
 
@@ -1232,7 +1233,7 @@ example_obj.keyboard    = """
 
 spec_aria10 = LanguageSpec.objects.get(url_slug='aria10')
 
-example_obj.markup = [m1,m2,m3,m4,m5,m6,m7,m8]
+example_obj.markup = [m1,m2,m3,m5,m6,m7]
 
 example_obj.html        = """
 <script type="text/javascript" src="http://localhost/coding/examples/js/jquery-1.4.2.min.js"></script>
